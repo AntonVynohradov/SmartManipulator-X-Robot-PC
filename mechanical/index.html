@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://antonvynohradov.github.io/SmartManipulator-X-Robot-PC/mechanical/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>BCN3D Moveo mechanics - SmartManipulator-X</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "BCN3D Moveo mechanics";
+        var mkdocs_page_input_path = "mechanical/index.md";
+        var mkdocs_page_url = "/SmartManipulator-X-Robot-PC/mechanical/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> SmartManipulator-X
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../architecture/">System overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">BCN3D Moveo mechanics</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#mechanical-source">Mechanical source</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ros-model-integration">ROS model integration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#acceptance-checks">Acceptance checks</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Computers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../robot-pc/">Robot PC</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../operator-pc/">Operator PC</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../smartfusion2/">SmartFusion2 firmware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dynamixel/compatibility-spec/">DYNAMIXEL compatibility</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">SmartManipulator-X</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Architecture</li>
+      <li class="breadcrumb-item active">BCN3D Moveo mechanics</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="bcn3d-moveo-mechanics">BCN3D Moveo Mechanics</h1>
+<h2 id="mechanical-source">Mechanical source</h2>
+<p>The target arm mechanics are based on the <a href="https://github.com/BCN3D/BCN3D-Moveo">BCN3D Moveo project</a>, not on the OpenMANIPULATOR-X geometry. The upstream repository provides CAD files, STL files, assembly/user documentation, a bill of materials, and original firmware. Its README describes an educational, additively manufactured arm controlled by Arduino-based electronics.</p>
+<p>This project replaces/adapts the control electronics; it does not claim that the original Moveo firmware or electronics are part of the SmartFusion2 control path. Refer to the upstream repository and its license for the authoritative mechanical files, assembly details, and attribution requirements.</p>
+<h2 id="ros-model-integration">ROS model integration</h2>
+<p>The intended home for the project-owned ROS model is:</p>
+<pre><code class="language-text">ros2_ws/src/smartmanipulator_x/smartmanipulator_x_description/
+</code></pre>
+<p>That package currently contains only empty placeholders. No Moveo URDF/Xacro, meshes, joint definitions, kinematic parameters, or ROS visualization configuration have been integrated or validated yet.</p>
+<p>When integrating the model:</p>
+<ul>
+<li>Use BCN3D Moveo geometry and assembly as the mechanical source of truth.</li>
+<li>Record the source revision and any project-specific changes to CAD/STL-derived geometry.</li>
+<li>Establish the base frame, link frames, joint axes, zero positions, and units from the source design and assembled robot.</li>
+<li>Verify joint ranges and collision geometry against the physical arm; do not inherit OpenMANIPULATOR-X limits or joint names.</li>
+<li>Define and document each Moveo joint-to-stepper mapping, transmission, microstepping, homing/reference method, and position scaling only after the hardware is selected and measured.</li>
+<li>Keep MoveIt planning groups, <code>ros2_control</code> joints, Gazebo joints, and physical motor mapping consistent.</li>
+<li>Preserve upstream license and attribution notices for imported or adapted assets. Do not assume that the project repository's license changes third-party asset licensing.</li>
+</ul>
+<p>The exact axis count, joint naming, dimensions, limits, stepper specifications, driver model, and sensing approach remain to be verified for the selected mechanical build. They are deliberately not inferred here from the project name.</p>
+<h2 id="acceptance-checks">Acceptance checks</h2>
+<p>Before a model is treated as the canonical robot description, validate that it parses in URDF/Xacro tooling, has a connected link tree and correct joint types/axes, and produces a useful RViz visualization. Compare each joint range and frame placement with the assembled Moveo. Then check that the same joint contract can be loaded by both the physical <code>ros2_control</code> configuration and the selected Gazebo integration.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../architecture/" class="btn btn-neutral float-left" title="System overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../robot-pc/" class="btn btn-neutral float-right" title="Robot PC">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../robot-pc/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

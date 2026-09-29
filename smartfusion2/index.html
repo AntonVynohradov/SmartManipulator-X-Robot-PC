@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://antonvynohradov.github.io/SmartManipulator-X-Robot-PC/smartfusion2/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>SmartFusion2 firmware - SmartManipulator-X</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SmartFusion2 firmware";
+        var mkdocs_page_input_path = "smartfusion2/index.md";
+        var mkdocs_page_url = "/SmartManipulator-X-Robot-PC/smartfusion2/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> SmartManipulator-X
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../architecture/">System overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mechanical/">BCN3D Moveo mechanics</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Computers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../robot-pc/">Robot PC</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../operator-pc/">Operator PC</a>
+                  </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">SmartFusion2 firmware</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#role-and-repository-boundary">Role and repository boundary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#arm-and-fpga-partition">ARM and FPGA partition</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#virtual-dynamixel-device">Virtual DYNAMIXEL device</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bring-up-sequence">Bring-up sequence</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dynamixel/compatibility-spec/">DYNAMIXEL compatibility</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">SmartManipulator-X</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">SmartFusion2 firmware</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="smartfusion2-firmware">SmartFusion2 Firmware</h1>
+<h2 id="role-and-repository-boundary">Role and repository boundary</h2>
+<p>SmartFusion2 is intended to function as the motor controller and virtual DYNAMIXEL device for the Robot PC. It is not a transparent USB-to-DYNAMIXEL bridge. Firmware source is maintained in a separate repository and is not part of this ROS integration repository.</p>
+<p>The intended data path is:</p>
+<pre><code class="language-text">Robot PC / DynamixelSDK
+  -&gt; USB CDC
+  -&gt; DYNAMIXEL Protocol 2.0 parser
+  -&gt; virtual-device Control Table
+  -&gt; motor-control logic
+  -&gt; stepper drivers
+  -&gt; BCN3D Moveo stepper motors
+</code></pre>
+<p>The actual USB behavior, control-table contract, driver hardware, and stepper interface remain to be implemented and tested.</p>
+<h2 id="arm-and-fpga-partition">ARM and FPGA partition</h2>
+<p>The partition is a design hypothesis and must be confirmed against board resources, peripheral support, latency, throughput, and measured control requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Candidate responsibility</th>
+<th>Candidate implementation</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USB CDC and host packet handling</td>
+<td>ARM</td>
+<td>Proposed, board/peripheral verification required</td>
+</tr>
+<tr>
+<td>Protocol parsing, register access, configuration, diagnostics</td>
+<td>ARM</td>
+<td>Proposed; protocol contract unverified</td>
+</tr>
+<tr>
+<td>FPGA communication and supervisory logic</td>
+<td>ARM</td>
+<td>Proposed; interface not selected</td>
+</tr>
+<tr>
+<td>Deterministic STEP/DIR generation and axis synchronization</td>
+<td>FPGA</td>
+<td>Candidate use; timing and architecture not measured</td>
+</tr>
+<tr>
+<td>Encoder/input capture and high-rate loops</td>
+<td>FPGA</td>
+<td>Conditional on selected sensors and measured need</td>
+</tr>
+</tbody>
+</table>
+<p>Do not document this table as an implemented partition until the target board design and interfaces are known.</p>
+<h2 id="virtual-dynamixel-device">Virtual DYNAMIXEL device</h2>
+<p>The firmware should implement only the Protocol 2.0 instructions, status responses, registers, modes, and state behavior actually required by the selected ROBOTIS host stack. Do not assume that exposing an XM430 model number or implementing its full Control Table is necessary or accurate.</p>
+<p>Before firmware register behavior is fixed, analyze the exact Jazzy revisions of <code>dynamixel_hardware_interface</code>, DynamixelSDK, and the relevant OpenMANIPULATOR software. Record source revisions and verified findings in the <a href="../dynamixel/compatibility-spec/">compatibility specification</a>. Keep unknown values explicitly marked as unknown and keep the firmware and ROS-side contract synchronized.</p>
+<h2 id="bring-up-sequence">Bring-up sequence</h2>
+<ol>
+<li>Confirm board USB CDC enumeration and host access.</li>
+<li>Verify Protocol 2.0 framing and status/error behavior against the host implementation.</li>
+<li>Test one virtual device with the required discovery and register operations.</li>
+<li>Add only the verified command/state and torque behavior needed for a single axis.</li>
+<li>Validate one stepper axis, including driver configuration, position scaling, limits, and any homing/feedback method.</li>
+<li>Scale to the full Moveo only after one-axis behavior and stop/safety behavior are reviewed.</li>
+</ol>
+<p>The firmware implementation and physical motor-control behavior are not validated by this repository's current ROS package scaffold.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../operator-pc/" class="btn btn-neutral float-left" title="Operator PC"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../dynamixel/compatibility-spec/" class="btn btn-neutral float-right" title="DYNAMIXEL compatibility">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../operator-pc/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../dynamixel/compatibility-spec/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

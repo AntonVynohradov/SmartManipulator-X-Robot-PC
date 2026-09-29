@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://antonvynohradov.github.io/SmartManipulator-X-Robot-PC/operator-pc/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Operator PC - SmartManipulator-X</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Operator PC";
+        var mkdocs_page_input_path = "operator-pc/index.md";
+        var mkdocs_page_url = "/SmartManipulator-X-Robot-PC/operator-pc/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> SmartManipulator-X
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../architecture/">System overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mechanical/">BCN3D Moveo mechanics</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Computers</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../robot-pc/">Robot PC</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Operator PC</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#responsibility">Responsibility</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#separate-repository">Separate repository</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#real-robot-and-simulation">Real robot and simulation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dds-checklist">DDS checklist</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../smartfusion2/">SmartFusion2 firmware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dynamixel/compatibility-spec/">DYNAMIXEL compatibility</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">SmartManipulator-X</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Computers</li>
+      <li class="breadcrumb-item active">Operator PC</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="operator-pc">Operator PC</h1>
+<h2 id="responsibility">Responsibility</h2>
+<p>The Operator PC owns motion planning, operator visualization, and simulation workflows:</p>
+<ul>
+<li>MoveIt 2 planning and execution clients.</li>
+<li>RViz2 visualization and operator-facing configuration.</li>
+<li>Gazebo simulation and simulation-specific <code>ros2_control</code> integration.</li>
+<li>ROS 2 DDS communication with the Robot PC over the configured network.</li>
+</ul>
+<p>It does not own the SmartFusion2 USB connection, motor hardware, or physical <code>ros2_control</code> hardware interface. Do not pass <code>/dev/ttyACM0</code> through to the Operator PC.</p>
+<h2 id="separate-repository">Separate repository</h2>
+<p>Operator PC implementation is maintained in a separate repository; this repository contains its architecture guidance only. Keep Operator-specific launch files, MoveIt configuration, RViz setup, Gazebo assets, and runtime/container configuration in that repository. The Robot PC Docker image must remain free of Operator PC GUI and simulation dependencies.</p>
+<p>Consume the canonical robot description from <code>smartmanipulator_x_description</code> or a future shared-description repository. The current description package is only an empty scaffold, so a validated BCN3D Moveo model must be integrated before configuring planning or simulation. Do not duplicate an independent URDF/Xacro or substitute the OpenMANIPULATOR-X model for Moveo.</p>
+<h2 id="real-robot-and-simulation">Real robot and simulation</h2>
+<p>The intended MoveIt application should work with either the physical Robot PC or simulation. The robot model, joint names, limits, planning groups, and controller-facing joint semantics must agree in both modes:</p>
+<pre><code class="language-text">Real robot: MoveIt -&gt; DDS -&gt; Robot PC ros2_control -&gt; verified DYNAMIXEL path -&gt; SmartFusion2
+Simulation: MoveIt -&gt; Gazebo ros2_control integration -&gt; simulated Moveo joints
+</code></pre>
+<p>Use the physical path only after SmartFusion2 compatibility and robot bringup are verified. Gazebo integration and Moveit configuration are not implemented in this repository.</p>
+<h2 id="dds-checklist">DDS checklist</h2>
+<p>For two-host operation, configure matching ROS 2 domain IDs and verify that both hosts use reachable network interfaces. Check DDS discovery, routing/multicast support, and firewall rules in the deployment network. SSH can be used for administration, but it is not a substitute for DDS connectivity. Simulation-only runs can be local to the Operator PC and do not require physical hardware.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../robot-pc/" class="btn btn-neutral float-left" title="Robot PC"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../smartfusion2/" class="btn btn-neutral float-right" title="SmartFusion2 firmware">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../robot-pc/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../smartfusion2/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

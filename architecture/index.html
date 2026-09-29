@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://antonvynohradov.github.io/SmartManipulator-X-Robot-PC/architecture/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>System overview - SmartManipulator-X</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "System overview";
+        var mkdocs_page_input_path = "architecture/index.md";
+        var mkdocs_page_url = "/SmartManipulator-X-Robot-PC/architecture/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> SmartManipulator-X
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">System overview</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#project-objective">Project objective</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#system-context">System context</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#component-ownership">Component ownership</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#software-reuse-boundary">Software reuse boundary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#operating-assumptions">Operating assumptions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#verified-state-versus-target">Verified state versus target</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#upstream-references">Upstream references</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mechanical/">BCN3D Moveo mechanics</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Computers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../robot-pc/">Robot PC</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../operator-pc/">Operator PC</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../smartfusion2/">SmartFusion2 firmware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dynamixel/compatibility-spec/">DYNAMIXEL compatibility</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">SmartManipulator-X</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Architecture</li>
+      <li class="breadcrumb-item active">System overview</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="system-architecture">System Architecture</h1>
+<h2 id="project-objective">Project objective</h2>
+<p>The target is to use the ROS 2 control and operator-software concepts of ROBOTIS <a href="https://docs.robotis.com/docs/systems/openmanipulator_x/overview/">OpenMANIPULATOR-X</a> with the mechanical design of <a href="https://github.com/BCN3D/BCN3D-Moveo">BCN3D Moveo</a>. SmartFusion2 is intended to replace the original motor controller/actuator electronics and control stepper motors on the Moveo mechanism.</p>
+<p>These sources have different roles. OpenMANIPULATOR-X is the reference for the ROS/DYNAMIXEL software stack; BCN3D Moveo is the mechanical reference. The OpenMANIPULATOR-X robot geometry, joints, actuator assumptions, and hardware configuration must not be copied as if they described Moveo.</p>
+<h2 id="system-context">System context</h2>
+<pre><code class="language-text"> Operator PC                              Robot PC
++--------------------------+   ROS 2    +-------------------------------+
+| MoveIt 2                 |    DDS     | ROS 2 Jazzy                   |
+| RViz2                    |&lt;----------&gt;| ros2_control                  |
+| Gazebo (simulation mode) |            | ROBOTIS hardware interface    |
++--------------------------+            | DynamixelSDK                  |
+                                        +---------------+---------------+
+                                                        | USB CDC
+                                                        | DYNAMIXEL Protocol 2.0
+                                        +---------------v---------------+
+                                        | SmartFusion2                   |
+                                        | ARM + FPGA; partition TBD      |
+                                        | virtual DYNAMIXEL device       |
+                                        +---------------+---------------+
+                                                        | STEP/DIR or another
+                                                        | verified driver link
+                                        +---------------v---------------+
+                                        | Stepper drivers and motors     |
+                                        +---------------+---------------+
+                                                        |
+                                        +---------------v---------------+
+                                        | BCN3D Moveo mechanics          |
+                                        +-------------------------------+
+</code></pre>
+<p>The motor-driver interface shown above is a design boundary, not a selected hardware implementation. The SmartFusion2 is a motor controller implementing device behavior; it is not merely a USB-to-DYNAMIXEL converter.</p>
+<h2 id="component-ownership">Component ownership</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Responsibility</th>
+<th>Repository boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Robot PC</td>
+<td>ROS 2 Jazzy, <code>ros2_control</code>, verified ROBOTIS hardware path, USB CDC access, robot bringup</td>
+<td>This repository</td>
+</tr>
+<tr>
+<td>Operator PC</td>
+<td>MoveIt 2, RViz2, Gazebo, operator workflows, ROS 2 DDS client</td>
+<td>Separate Operator PC repository</td>
+</tr>
+<tr>
+<td>SmartFusion2</td>
+<td>DYNAMIXEL Protocol 2.0 device behavior, control table, motor-control coordination</td>
+<td>Separate firmware repository</td>
+</tr>
+<tr>
+<td>BCN3D Moveo</td>
+<td>Mechanical links, joints, printed parts, assembly and mechanical limits</td>
+<td>Upstream mechanical source; project model integration belongs in this repository or a shared description repository</td>
+</tr>
+<tr>
+<td>ROBOTIS packages</td>
+<td>Reusable SDK, hardware interface, messages, and upstream OpenMANIPULATOR software</td>
+<td>Separate upstream checkouts managed by the manifests</td>
+</tr>
+</tbody>
+</table>
+<p>The canonical project robot-description package is <code>ros2_ws/src/smartmanipulator_x/smartmanipulator_x_description/</code>. It is currently empty apart from placeholders. The Operator PC should consume this package or a future shared-description package rather than maintain a divergent robot model.</p>
+<h2 id="software-reuse-boundary">Software reuse boundary</h2>
+<p>The intended physical path is:</p>
+<pre><code class="language-text">MoveIt 2
+  -&gt; ros2_control
+  -&gt; ROBOTIS dynamixel_hardware_interface
+  -&gt; DynamixelSDK
+  -&gt; USB CDC
+  -&gt; SmartFusion2 virtual DYNAMIXEL device
+  -&gt; stepper motor control
+</code></pre>
+<p>Reuse the existing ROBOTIS hardware interface if source analysis confirms that its model configuration, protocol operations, control-table accesses, command/state interfaces, and timing requirements can be supported. Do not add a project-specific <code>smartfusion2_hardware_interface</code> pre-emptively. Implement only the device behavior needed by the verified host stack, not a presumed complete XM430 clone.</p>
+<p>Reusing the OpenMANIPULATOR-X ROS application does not make its robot model or joint/controller configuration valid for Moveo. MoveIt planning groups, joint names, limits, kinematics, transmission assumptions, ros2_control interfaces, and controller configuration must agree with a verified Moveo description and the physical stepper setup.</p>
+<p>The Robot PC image is intentionally separate from the Operator PC runtime. MoveIt, RViz2, and Gazebo do not belong in the current Robot PC Docker image. In simulation, route <code>ros2_control</code> to the selected Gazebo integration; on the real robot, route it to the verified DYNAMIXEL/SmartFusion2 path. Keep the robot model and joint semantics consistent across both modes.</p>
+<h2 id="operating-assumptions">Operating assumptions</h2>
+<ul>
+<li>The Robot PC target is Ubuntu 24.04 with ROS 2 Jazzy; the current Robot PC profile uses Docker.</li>
+<li>The Operator PC runs ROS 2 Jazzy and reaches the Robot PC using DDS over the configured network.</li>
+<li>SmartFusion2 is expected to enumerate as USB CDC, commonly <code>/dev/ttyACM0</code>; this must be confirmed on the actual board and host.</li>
+<li>Only the Robot PC owns the USB connection to SmartFusion2. The Operator PC does not require direct USB access.</li>
+<li>DDS domain ID, interface selection, discovery, and firewall policy must be configured consistently across hosts. SSH is for administration, not the ROS data path.</li>
+<li>ARM/FPGA partitioning, motor-driver hardware, feedback sensors, and safety behavior are not finalized.</li>
+</ul>
+<h2 id="verified-state-versus-target">Verified state versus target</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Current repository state</th>
+<th>Target or open verification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Robot description</td>
+<td>Empty URDF/mesh placeholders</td>
+<td>Import/author BCN3D Moveo model; verify frame, joint, limit, and visual/collision data</td>
+</tr>
+<tr>
+<td>Robot PC</td>
+<td>Draft Docker profile and ROS package scaffolds</td>
+<td>Verify current upstream Jazzy sources, USB behavior, and physical bringup</td>
+</tr>
+<tr>
+<td>Operator PC</td>
+<td>Not implemented in this repository</td>
+<td>Separate project; consume the canonical Moveo description and validate DDS</td>
+</tr>
+<tr>
+<td>SmartFusion2</td>
+<td>Firmware not included here</td>
+<td>Separate project; implement the minimum verified DYNAMIXEL device contract</td>
+</tr>
+<tr>
+<td>Hardware configuration</td>
+<td>Plugin and YAML parameter schema unselected</td>
+<td>Verify stock ROBOTIS interface compatibility before choosing an adapter</td>
+</tr>
+<tr>
+<td>Mechanical/electrical integration</td>
+<td>No Moveo assets or motor-driver design in this repository yet</td>
+<td>Establish joint-to-motor mapping, drivers, sensing, limits, and safety requirements</td>
+</tr>
+</tbody>
+</table>
+<h2 id="upstream-references">Upstream references</h2>
+<ul>
+<li><a href="https://docs.robotis.com/docs/systems/openmanipulator_x/overview/">ROBOTIS OpenMANIPULATOR-X overview</a></li>
+<li><a href="https://github.com/BCN3D/BCN3D-Moveo">BCN3D Moveo source repository</a></li>
+<li><a href="https://github.com/ROBOTIS-GIT/open_manipulator">ROBOTIS OpenMANIPULATOR ROS 2 source</a></li>
+<li><a href="https://github.com/ROBOTIS-GIT/DynamixelSDK">DynamixelSDK source</a></li>
+<li><a href="https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface">DYNAMIXEL hardware interface source</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../mechanical/" class="btn btn-neutral float-right" title="BCN3D Moveo mechanics">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../mechanical/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

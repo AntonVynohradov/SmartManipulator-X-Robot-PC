@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://antonvynohradov.github.io/SmartManipulator-X-Robot-PC/development/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Development - SmartManipulator-X</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Development";
+        var mkdocs_page_input_path = "development/index.md";
+        var mkdocs_page_url = "/SmartManipulator-X-Robot-PC/development/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> SmartManipulator-X
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../architecture/">System overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mechanical/">BCN3D Moveo mechanics</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Computers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../robot-pc/">Robot PC</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../operator-pc/">Operator PC</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../smartfusion2/">SmartFusion2 firmware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dynamixel/compatibility-spec/">DYNAMIXEL compatibility</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Development</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#development-prerequisites">Development prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#documentation-environment">Documentation environment</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#windows-powershell">Windows PowerShell</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ubuntu-linux-bash">Ubuntu / Linux Bash</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#build-the-robot-pc-image">Build the Robot PC image</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-the-image">Use the image</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#software-development-without-hardware">Software development without hardware</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#robot-pc-with-smartfusion2">Robot PC with SmartFusion2</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#development-roadmap">Development roadmap</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#current-repository-state">Current repository state</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#validation-boundaries">Validation boundaries</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">SmartManipulator-X</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Development</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="development-guide">Development Guide</h1>
+<p>Work is split across this ROS integration repository, a separate Operator PC repository, and a separate SmartFusion2 firmware repository. Keep the interfaces between them documented and verified; do not treat a scaffold, a successful compile, or an upstream branch name as proof of working hardware compatibility.</p>
+<h2 id="development-prerequisites">Development prerequisites</h2>
+<ul>
+<li>Git and a checkout of this repository.</li>
+<li>Docker Engine and the Docker Compose plugin for building/running the Robot PC image. The physical USB workflow targets Ubuntu 24.04 Linux.</li>
+<li>Python 3 with the <code>venv</code> module for building or previewing this documentation site.</li>
+<li>Network access during the first Docker image build so <code>vcs</code>, <code>rosdep</code>, and package managers can retrieve dependencies.</li>
+<li>For physical Robot PC runs, a SmartFusion2 board connected to the Linux host as USB CDC, typically <code>/dev/ttyACM0</code>, with appropriate host permissions.</li>
+</ul>
+<h2 id="documentation-environment">Documentation environment</h2>
+<p>Keep documentation tools isolated in the repository-local <code>.venv</code>. Do not install the MkDocs requirements into the system Python environment.</p>
+<p>Run these commands in a shell that has not sourced a ROS environment. If <code>PYTHONPATH</code> is set by a ROS/Pixi environment, clear it in this documentation shell first so external ROS packages do not leak into the virtual environment.</p>
+<h3 id="windows-powershell">Windows PowerShell</h3>
+<pre><code class="language-powershell">Remove-Item Env:PYTHONPATH -ErrorAction SilentlyContinue
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -r requirements-docs.txt
+.\.venv\Scripts\python.exe -m mkdocs serve
+</code></pre>
+<p>Open the local URL printed by MkDocs. For a production-style check, replace <code>serve</code> in the final command above with <code>build --strict</code>. The commands call the virtual-environment interpreter directly, so PowerShell activation is not required.</p>
+<h3 id="ubuntu-linux-bash">Ubuntu / Linux Bash</h3>
+<p>On Ubuntu, install the venv support package if needed (<code>sudo apt install python3-venv</code>). Then run:</p>
+<pre><code class="language-bash">unset PYTHONPATH
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-docs.txt
+python -m mkdocs serve
+</code></pre>
+<p>Use <code>python -m mkdocs build --strict</code> to check the site. Run <code>deactivate</code> to leave the environment. The <code>.venv/</code> directory is local and must not be committed.</p>
+<h2 id="build-the-robot-pc-image">Build the Robot PC image</h2>
+<p>Run these commands from the repository root. Building the image does not require the SmartFusion2 board to be connected:</p>
+<pre><code class="language-bash">docker compose -f docker/docker-compose.yml build
+</code></pre>
+<p>The Compose build uses the repository root as its context. The Dockerfile installs ROS 2 Jazzy and build dependencies, imports the Robot PC repositories from <code>ros2_robot.repos</code>, copies the project packages into the image, and runs <code>rosdep</code> and <code>colcon build</code>. The result is tagged <code>smartmanipulator-x-robot:jazzy</code>.</p>
+<p>The upstream manifest currently tracks <code>jazzy</code> branches, which may move. For repeatable development, review and pin immutable revisions before relying on a particular image. Rebuild after changing source files, manifests, or Docker configuration: the Compose service does not mount the host source tree into the container.</p>
+<h2 id="use-the-image">Use the image</h2>
+<h3 id="software-development-without-hardware">Software development without hardware</h3>
+<p>After building the image, start its default shell without the USB mapping:</p>
+<pre><code class="language-bash">docker run --rm -it smartmanipulator-x-robot:jazzy
+</code></pre>
+<p>The entrypoint sources ROS Jazzy and the built workspace. The default command is Bash. Inspect the available project and DYNAMIXEL packages with:</p>
+<pre><code class="language-bash">ros2 pkg list | grep -E '^(dynamixel_sdk|dynamixel_interfaces|dynamixel_hardware_interface|smartmanipulator_x_)'
+</code></pre>
+<p>Changes made only inside this temporary container are discarded when it exits. Make source changes in the host checkout, rebuild the image, and start a new container to test them.</p>
+<h3 id="robot-pc-with-smartfusion2">Robot PC with SmartFusion2</h3>
+<p>The hardware workflow requires Ubuntu 24.04 Linux with Docker Engine. Connect the board and check that it appears on the host:</p>
+<pre><code class="language-bash">lsusb
+ls -l /dev/ttyACM0
+</code></pre>
+<p>Ensure the host user and container can access the serial device. If the board uses another <code>/dev/ttyACM*</code> path, update the device mapping in <code>docker/docker-compose.yml</code>. Then run:</p>
+<pre><code class="language-bash">docker compose -f docker/docker-compose.yml run --rm smartmanipulator_x
+</code></pre>
+<p>This starts an interactive shell with <code>/dev/ttyACM0</code> passed into the container. Type <code>exit</code> to stop it; <code>--rm</code> removes the temporary container. Docker Desktop on Windows does not expose a Linux <code>/dev/ttyACM0</code> device through this configuration, so use the Linux Robot PC for physical hardware access.</p>
+<p>The image contains the Robot PC ROS/control dependencies only. MoveIt 2, RViz2, Gazebo, and Operator PC workflows belong to the separate Operator PC environment. The current project bringup and controller configuration are scaffolds; building or entering the image does not validate motion or SmartFusion2 compatibility.</p>
+<h2 id="development-roadmap">Development roadmap</h2>
+<ol>
+<li><strong>Freeze inputs and boundaries.</strong> Record the BCN3D Moveo mechanical source revision and applicable asset license. Verify the required ROS 2 Jazzy upstream repositories and pin immutable commits or tags for reproducible builds. Keep firmware and Operator PC implementations in their designated repositories.</li>
+<li><strong>Establish the Moveo model.</strong> Integrate the Moveo geometry into <code>smartmanipulator_x_description</code>. Verify frames, joint types and axes, joint limits, collision geometry, and the assembled robot. Define measured joint-to-stepper mappings and required driver/sensor hardware; do not reuse OpenMANIPULATOR-X joint configuration by assumption.</li>
+<li><strong>Verify the host contract.</strong> Inspect the pinned ROBOTIS <code>dynamixel_hardware_interface</code>, DynamixelSDK, and relevant OpenMANIPULATOR ROS 2 sources. Record required Protocol 2.0 operations, register accesses, command/state interfaces, operating modes, initialization, timing, and failure behavior in <code>../dynamixel/compatibility-spec.md</code>.</li>
+<li><strong>Validate the ROS stack without SmartFusion2.</strong> Build the Robot PC workspace and validate the selected OpenMANIPULATOR software components and the project Moveo description independently. Select controller names, joint names, update rates, and parameter schemas from verified sources and the Moveo model.</li>
+<li><strong>Implement and test one virtual actuator.</strong> In the separate firmware repository, implement USB CDC and the minimum verified DYNAMIXEL-device behavior. Test framing, device discovery, required reads/writes, status/error responses, and timeout behavior against the actual host implementation.</li>
+<li><strong>Bring up one physical axis.</strong> Confirm the stepper driver, electrical limits, reference/homing method, position conversion, travel limits, and stop behavior. Test small motions at conservative settings before scaling out.</li>
+<li><strong>Integrate the complete robot and simulation.</strong> Validate all Moveo axes, controller switching and state reporting. Configure Gazebo in the Operator PC repository using the same robot description and joint semantics as hardware.</li>
+<li><strong>Validate two-computer operation.</strong> Configure ROS 2 DDS domain/network settings and verify planning/execution from Operator PC to Robot PC without routing the USB device to the Operator PC.</li>
+</ol>
+<h2 id="current-repository-state">Current repository state</h2>
+<ul>
+<li>The Robot PC Docker profile and ROS package scaffolds exist. The Docker profile is not evidence of successful physical operation.</li>
+<li>The project robot-description package has empty URDF and mesh placeholders. No Moveo model is integrated yet.</li>
+<li><code>hardware.yaml</code> is a template; <code>controllers.yaml</code> has no controller parameters. A physical launch configuration and plugin selection are not complete.</li>
+<li>SmartFusion2 firmware and the Operator PC application are outside this repository.</li>
+<li>DYNAMIXEL compatibility values remain unverified; the compatibility table must not be filled with inferred XM430 values.</li>
+</ul>
+<h2 id="validation-boundaries">Validation boundaries</h2>
+<p>Use <code>.venv</code>'s Python to run <code>python -m mkdocs build --strict</code> for documentation changes and the Docker image build to verify that the Robot PC workspace compiles. Hardware-in-the-loop checks must be performed on the actual target host and board; they cannot be inferred from a documentation build or container compile. Follow the staged roadmap before enabling motion.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../dynamixel/compatibility-spec/" class="btn btn-neutral float-left" title="DYNAMIXEL compatibility"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../dynamixel/compatibility-spec/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

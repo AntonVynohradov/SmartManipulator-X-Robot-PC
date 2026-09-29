@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://antonvynohradov.github.io/SmartManipulator-X-Robot-PC/robot-pc/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Robot PC - SmartManipulator-X</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Robot PC";
+        var mkdocs_page_input_path = "robot-pc/index.md";
+        var mkdocs_page_url = "/SmartManipulator-X-Robot-PC/robot-pc/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> SmartManipulator-X
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../architecture/">System overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mechanical/">BCN3D Moveo mechanics</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Computers</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Robot PC</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#responsibility">Responsibility</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#host-and-container">Host and container</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#network-and-operation">Network and operation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#repository-ownership">Repository ownership</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../operator-pc/">Operator PC</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../smartfusion2/">SmartFusion2 firmware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dynamixel/compatibility-spec/">DYNAMIXEL compatibility</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../development/">Development</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">SmartManipulator-X</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Computers</li>
+      <li class="breadcrumb-item active">Robot PC</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="robot-pc">Robot PC</h1>
+<h2 id="responsibility">Responsibility</h2>
+<p>The Robot PC owns the real-time-facing ROS 2 control path and is the only computer that connects directly to the SmartFusion2 USB CDC device:</p>
+<pre><code class="language-text">ros2_control
+  -&gt; ROBOTIS dynamixel_hardware_interface
+  -&gt; DynamixelSDK
+  -&gt; USB CDC (commonly /dev/ttyACM0)
+  -&gt; SmartFusion2
+  -&gt; stepper motor control
+</code></pre>
+<p>The stock ROBOTIS hardware interface is the preferred starting point, but it must not be assumed compatible until the exact protocol and control-table accesses have been checked against current Jazzy source. See the <a href="../dynamixel/compatibility-spec/">compatibility specification</a>.</p>
+<h2 id="host-and-container">Host and container</h2>
+<p>The target Robot PC host is Ubuntu 24.04 with Docker Engine and Docker Compose. The current <code>docker/</code> profile is based on <code>ros:jazzy-ros-base</code>. It imports the DYNAMIXEL SDK/interface dependencies through <code>ros2_robot.repos</code>, builds the project-owned packages, and maps <code>/dev/ttyACM0</code> into the container with the <code>dialout</code> group.</p>
+<p>MoveIt 2, RViz2, Gazebo, and the Operator PC application are intentionally excluded from this image. The Operator PC owns those dependencies and connects over ROS 2 DDS.</p>
+<p>Build and start the Robot PC container from the repository root:</p>
+<pre><code class="language-bash">docker compose -f docker/docker-compose.yml build
+docker compose -f docker/docker-compose.yml run --rm smartmanipulator_x
+</code></pre>
+<p>Before starting, connect the board and confirm the device path on the Linux host:</p>
+<pre><code class="language-bash">lsusb
+ls -l /dev/ttyACM0
+</code></pre>
+<p>If the board enumerates under another <code>/dev/ttyACM*</code> path, update the Compose device mapping. Ensure the host user and container have appropriate device permissions. Windows does not expose a Linux <code>/dev/ttyACM0</code> device directly to this container configuration.</p>
+<p>Inside the container, inspect the available packages with:</p>
+<pre><code class="language-bash">ros2 pkg list | grep -E '^(dynamixel_sdk|dynamixel_interfaces|dynamixel_hardware_interface|smartmanipulator_x_)'
+</code></pre>
+<p>The current launch/configuration packages are scaffolds. No complete physical bringup or SmartFusion2 hardware operation is documented as validated.</p>
+<h2 id="network-and-operation">Network and operation</h2>
+<p>The Robot PC communicates with the Operator PC using ROS 2 DDS over the configured network. Configure the same <code>ROS_DOMAIN_ID</code> on both computers and validate DDS discovery, selected network interfaces, multicast/unicast policy, and firewall behavior on the actual network. Do not use SSH as the ROS transport.</p>
+<p>Do not enable motor motion until the actuator mapping, motor-driver configuration, limits, homing behavior, and an appropriate stop/safety procedure have been reviewed on the assembled robot. Test incrementally: upstream ROS without hardware, USB/device communication, one virtual actuator, one physical axis, then the complete mechanism.</p>
+<h2 id="repository-ownership">Repository ownership</h2>
+<ul>
+<li>Robot PC Docker and bringup: <code>docker/</code> and <code>ros2_ws/src/smartmanipulator_x/smartmanipulator_x_bringup/</code>.</li>
+<li>Project controller and hardware configuration: <code>ros2_ws/src/smartmanipulator_x/smartmanipulator_x_config/</code>.</li>
+<li>Canonical robot description location: <code>ros2_ws/src/smartmanipulator_x/smartmanipulator_x_description/</code>.</li>
+<li>Upstream dependencies: separate source checkouts selected by <code>ros2_robot.repos</code>; pin immutable revisions for reproducible builds before production use.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../mechanical/" class="btn btn-neutral float-left" title="BCN3D Moveo mechanics"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../operator-pc/" class="btn btn-neutral float-right" title="Operator PC">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../mechanical/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../operator-pc/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
