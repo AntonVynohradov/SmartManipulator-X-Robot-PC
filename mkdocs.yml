@@ -1,7 +1,8 @@
 site_name: SmartManipulator-X
 site_description: OpenMANIPULATOR-X software concepts, SmartFusion2 control, and BCN3D Moveo mechanics
-docs_dir: http://antonvynohradov.github.io/SmartManipulator-X-Robot-PC.git
-site_dir: https://github.com/AntonVynohradov/SmartManipulator-X-Robot-PC.git
+docs_dir: docs
+site_dir: site
+site_url: https://antonvynohradov.github.io/SmartManipulator-X-Robot-PC/
 strict: true
 
 theme:
