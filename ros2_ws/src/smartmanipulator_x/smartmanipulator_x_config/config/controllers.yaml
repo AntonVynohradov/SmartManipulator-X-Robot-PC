@@ -1,0 +1,4 @@
+# Controller names, joint names, and update frequency must be derived from
+# the verified OpenMANIPULATOR-X ROS 2 configuration before enabling controllers.
+controller_manager:
+  ros__parameters: {}

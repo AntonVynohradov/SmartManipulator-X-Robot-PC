@@ -1,0 +1,20 @@
+site_name: SmartManipulator-X
+site_description: OpenMANIPULATOR-X software concepts, SmartFusion2 control, and BCN3D Moveo mechanics
+docs_dir: http://antonvynohradov.github.io/SmartManipulator-X-Robot-PC.git
+site_dir: https://github.com/AntonVynohradov/SmartManipulator-X-Robot-PC.git
+strict: true
+
+theme:
+  name: readthedocs
+
+nav:
+  - Home: index.md
+  - Architecture:
+      - System overview: architecture/index.md
+      - BCN3D Moveo mechanics: mechanical/index.md
+  - Computers:
+      - Robot PC: robot-pc/index.md
+      - Operator PC: operator-pc/index.md
+  - SmartFusion2 firmware: smartfusion2/index.md
+  - DYNAMIXEL compatibility: dynamixel/compatibility-spec.md
+  - Development: development/index.md

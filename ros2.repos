@@ -1,0 +1,17 @@
+repositories:
+  robotis/DynamixelSDK:
+    type: git
+    url: https://github.com/ROBOTIS-GIT/DynamixelSDK.git
+    version: jazzy
+  robotis/dynamixel_interfaces:
+    type: git
+    url: https://github.com/ROBOTIS-GIT/dynamixel_interfaces.git
+    version: jazzy
+  robotis/dynamixel_hardware_interface:
+    type: git
+    url: https://github.com/ROBOTIS-GIT/dynamixel_hardware_interface.git
+    version: jazzy
+  robotis/open_manipulator:
+    type: git
+    url: https://github.com/ROBOTIS-GIT/open_manipulator.git
+    version: jazzy

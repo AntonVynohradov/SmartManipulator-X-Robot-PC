@@ -1,0 +1,17 @@
+name: smartmanipulator-x
+
+services:
+  smartmanipulator_x:
+    image: smartmanipulator-x-robot:jazzy
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    working_dir: /ws
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    group_add:
+      - dialout
+    environment:
+      ROS_DOMAIN_ID: "0"
+    stdin_open: true
+    tty: true
