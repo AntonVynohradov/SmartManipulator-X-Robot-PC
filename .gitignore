@@ -4,9 +4,12 @@ ros2_ws/install/
 ros2_ws/log/
 /site/
 /.venv/
+/.venv-linux/
+__pycache__/
 
 # Editor and operating system files
-.vscode/
+.vscode/*
+!.vscode/tasks.json
 .idea/
 .DS_Store
 Thumbs.db

@@ -1,116 +1,342 @@
-# Development Guide
+# Development environment
 
-Work is split across this ROS integration repository, a separate Operator PC repository, and a separate SmartFusion2 firmware repository. Keep the interfaces between them documented and verified; do not treat a scaffold, a successful compile, or an upstream branch name as proof of working hardware compatibility.
+The repository uses two separate environments:
 
-## Development prerequisites
+| Environment | Runs where | Contains |
+| --- | --- | --- |
+| **Firmware** | Docker image (Dev Container, Compose, or CI) | Zephyr, west, Zephyr SDK with `arm-zephyr-eabi`, CMake, Ninja, ccache, and the DynamixelSDK host library |
+| **Host tools** | Repository `.venv` on Windows or Linux | Python dependencies of `tools/dxl_test_gui` and of the documentation build (`requirements.txt`) |
+| **FPGA / hardware** | Host only | Microchip Libero SoC and licenses: MSS, clocks, fabric, pins, programming |
 
-- Git and a checkout of this repository.
-- Docker Engine and the Docker Compose plugin for building/running the Robot PC image. The physical USB workflow targets Ubuntu 24.04 Linux.
-- Python 3 with the `venv` module for building or previewing this documentation site.
-- Network access during the first Docker image build so `vcs`, `rosdep`, and package managers can retrieve dependencies.
-- For physical Robot PC runs, a SmartFusion2 board connected to the Linux host as USB CDC, typically `/dev/ttyACM0`, with appropriate host permissions.
+Libero and Microchip licenses are never installed in the image or committed to
+the repository.
 
-## Documentation environment
+## Repository layout
 
-Keep documentation tools isolated in the repository-local `.venv`. Do not install the MkDocs requirements into the system Python environment.
+```text
+.
+├── apps/SmartManipulator_Controller/   Zephyr application (product firmware)
+│   ├── boards/                         target overlay, _sim overlay, board .conf
+│   ├── include/{dynamixel,motor,servo}/ public module headers
+│   ├── src/                            main, transport, codec, XW430 and servo models,
+│   │                                   motor workers and backends, servo output
+│   ├── tests/protocol2_test.c          host unit tests for the codec
+│   ├── prj.conf, prj_sim.conf, Kconfig, CMakeLists.txt
+├── tools/dxl_test_gui/                 Protocol 2.0 motor tester (Python/Tkinter)
+├── docs/                               this documentation (Markdown, built with MkDocs)
+├── tools/docs/                         PDF build script, cover page, MkDocs hooks
+├── mkdocs.yml                          documentation site and PDF configuration
+├── .agents/skills/                     engineering rules for coding agents
+├── .devcontainer/devcontainer.json     Dev Container (uses ../Dockerfile)
+├── .vscode/                            tasks, workspace menu scripts, settings
+├── Dockerfile, compose.yaml            firmware build image
+├── west.yml                            Zephyr manifest (pinned revision)
+├── requirements.txt                    host Python dependencies (.venv): GUI and documentation build
+└── .gitattributes                      line-ending rules (LF; CRLF for .bat/.ps1)
+```
 
-Run these commands in a shell that has not sourced a ROS environment. If `PYTHONPATH` is set by a ROS/Pixi environment, clear it in this documentation shell first so external ROS packages do not leak into the virtual environment.
+Generated directories (`build/`, `.west/`, `.ccache/`, `.venv/`, `site/`, `zephyr/`
+checkouts) are ignored and must not be committed.
 
-### Windows PowerShell
+## Pinned tool versions
+
+| Component | Version |
+| --- | --- |
+| Zephyr (`west.yml`) | `v4.5.0-rc1` (first release with `m2s_hello_fpga_kit/m2s010`) |
+| Base image | `python:3.12.15-slim-bookworm`, digest-pinned, `linux/amd64` |
+| west | 1.4.0 |
+| Zephyr SDK | 1.0.0 (ARM toolchain in `/opt/zephyr-sdk/gnu/arm-zephyr-eabi`) |
+| CMake | 3.30.5 |
+| ccache | 4.12.3 |
+| jsonschema / pyelftools | 4.26.0 / 0.33 |
+| DynamixelSDK (host library only) | 4.1.0, commit `f838bc90f72fcf5b9c279432d6e12fc24969daa8` |
+| pyserial (`.venv`) | 3.5 |
+| Image tag (`compose.yaml`) | `zephyr-sf2:1.0.0` |
+
+Versions are `ARG`s in the `Dockerfile`. The SDK, ARM toolchain, and ccache
+archives are verified by SHA-256. Do not use `latest` or a moving branch for
+build-critical dependencies.
+
+## Dev Container
+
+1. Install Docker (with BuildKit) and the VS Code **Dev Containers**
+   extension.
+2. Open the repository and run **F1 → Dev Containers: Reopen in Container**.
+
+`.devcontainer/devcontainer.json` builds the repository `Dockerfile` (the
+single source of truth for tool versions). It mounts the repository at
+`/workspace` and `.ccache/` at `/ccache`, sets `BOARD=m2s_hello_fpga_kit/m2s010`,
+and installs the Zephyr IDE, C/C++, CMake, Cortex-Debug, and Serial Monitor
+extensions. After you change the `Dockerfile` or build arguments, run
+**Dev Containers: Rebuild Container**. Reopening the container does not update
+the tools.
+
+Check the toolchain inside the container:
+
+```bash
+west --version
+arm-zephyr-eabi-gcc --version
+cmake --version && ninja --version
+```
+
+## VS Code tasks
+
+**Ctrl+Shift+B** opens **Zephyr: Workspace Menu**. Its options depend on the
+operating system:
+
+| OS | Action | Implementation |
+| --- | --- | --- |
+| Linux (Dev Container) | **Initialize + update**: `west init -l .` if needed, then `west update` | `.vscode/workspace-menu.sh` |
+| | **Update dependencies**: initializes if needed, then `west update` | |
+| | **Build firmware**: checks the workspace (`ensure-west-workspace.sh`), then `west build` | |
+| | **Clean**: removes `build/`, `build-sim/`, `build-native/` | |
+| | **Clean and Build**: pristine build (`-p always`) | |
+| | **Build simulation firmware** / **Clean and Build simulation firmware**: `-d build-sim -- -DFILE_SUFFIX=sim` | |
+| | **Run simulation on PC (native_sim)**: builds the simulation for `native_sim/native/64` and runs it; the UART is a `/dev/pts/N` | |
+| Windows host | **Create .venv**: creates `.venv`, upgrades pip, installs `requirements.txt`, checks Tkinter | `.vscode/host-menu.ps1` |
+| | **Run motor tester GUI** / **(simulator)**: creates `.venv` if needed, then starts `tools/dxl_test_gui` | |
+| Linux and Windows | **Build PDF documentation**: sets up the docs tools if needed, then runs `tools/docs/build_pdf.py` (on Linux in a separate `.venv-linux` when `.venv` is a Windows environment) | both scripts |
+
+Individual tasks are available under **Tasks: Run Task**: *Zephyr: Build*,
+*Zephyr: Pristine Build*, *Zephyr: Build (simulation)* (all depend on *Zephyr: Ensure workspace*),
+*Zephyr: Clean*, *Zephyr: Ccache Stats*, *Zephyr: Ccache Clear*, and
+*Docs: Build PDF* (also under **Tasks: Run Build Task**). Keep shell
+logic in the scripts under `.vscode/`, not inline in `tasks.json`.
+
+## Building
+
+```bash
+# target firmware (TMC5160 over SPI)
+west build -b m2s_hello_fpga_kit/m2s010 -s apps/SmartManipulator_Controller -d build
+# simulation firmware (no motor hardware; prj_sim.conf + _sim overlay)
+west build -b m2s_hello_fpga_kit/m2s010 -s apps/SmartManipulator_Controller -d build-sim -- -DFILE_SUFFIX=sim
+# simulation firmware as a Linux executable (UART on a pseudo-terminal)
+west build -b native_sim/native/64 -s apps/SmartManipulator_Controller -d build-native -- -DFILE_SUFFIX=sim
+```
+
+Use a separate build directory per variant. The variants are described in
+[Firmware variants](../firmware/index.md#firmware-variants). Run these
+commands from the workspace root. The root is a west workspace, and `-s`
+selects the application. Make a **pristine build** after changes to
+`prj.conf`, Kconfig, DeviceTree overlays, CMake files, the Zephyr version, or
+the toolchain:
+
+```bash
+west build -p always -b m2s_hello_fpga_kit/m2s010 -s apps/SmartManipulator_Controller -d build
+```
+
+Zephyr picks the board overlay from `boards/` automatically:
+`m2s_hello_fpga_kit_m2s010.overlay` for the target, and
+`m2s_hello_fpga_kit_m2s010_sim.overlay` with `FILE_SUFFIX=sim`. Passing
+`-DDTC_OVERLAY_FILE=...` replaces it; use `-DEXTRA_DTC_OVERLAY_FILE=...` to add
+one.
+
+### Build artifacts
+
+| File | Use |
+| --- | --- |
+| `build/zephyr/zephyr.elf` | Debugging (symbols) |
+| `build/zephyr/zephyr.hex` / `zephyr.bin` | Programming tools. Check the eNVM and hardware configuration first. |
+| `build/compile_commands.json` | IntelliSense (`C_Cpp.default.compileCommands`) |
+
+### ccache
+
+The cache lives in `.ccache/` on the host and is mounted at `/ccache`, so it
+survives container rebuilds. Use `ccache --show-stats` and `ccache --clear`,
+or the matching VS Code tasks. The cache is only an optimization. If a build
+behaves strangely, make a pristine build first.
+
+## West and Zephyr
+
+`west.yml` pins Zephyr `v4.5.0-rc1` and imports its modules. Run `west update`
+after changing the manifest. Keep the revision pinned; never use `main`. A
+change of the Zephyr version must be verified with a build, a pristine build,
+the host tests, and a test on the kit.
+
+## Host Python environment (.venv)
+
+`requirements.txt` in the repository root lists the host dependencies:
+`pyserial==3.5` for the GUI, and MkDocs, mkdocs-material,
+mkdocs-print-site-plugin, Playwright and pypdf for the documentation. Tkinter
+comes with Python and cannot be installed with pip.
 
 ```powershell
-Remove-Item Env:PYTHONPATH -ErrorAction SilentlyContinue
+# Windows (PowerShell, repository root)
 py -m venv .venv
-.\.venv\Scripts\python.exe -m pip install --upgrade pip
-.\.venv\Scripts\python.exe -m pip install -r requirements-docs.txt
-.\.venv\Scripts\python.exe -m mkdocs serve
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Open the local URL printed by MkDocs. For a production-style check, replace `serve` in the final command above with `build --strict`. The commands call the virtual-environment interpreter directly, so PowerShell activation is not required.
-
-### Ubuntu / Linux Bash
-
-On Ubuntu, install the venv support package if needed (`sudo apt install python3-venv`). Then run:
-
 ```bash
-unset PYTHONPATH
+# Linux (repository root); first: sudo apt install python3-tk python3-venv
 python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements-docs.txt
-python -m mkdocs serve
+.venv/bin/python -m pip install -r requirements.txt
 ```
 
-Use `python -m mkdocs build --strict` to check the site. Run `deactivate` to leave the environment. The `.venv/` directory is local and must not be committed.
+On Windows, the **Create .venv** menu action does the same.
+`tools/dxl_test_gui/run_gui.bat` creates the environment on first use.
 
-## Build the Robot PC image
+## Tests
 
-Run these commands from the repository root. Building the image does not require the SmartFusion2 board to be connected:
+| Test | Command | Where |
+| --- | --- | --- |
+| Firmware codec (C) | `gcc -std=c11 -Wall -Wextra -Werror -I include src/protocol2.c tests/protocol2_test.c -o /tmp/protocol2_test && /tmp/protocol2_test` in `apps/SmartManipulator_Controller` | Container or any gcc host |
+| GUI codec, bus, simulator, and **firmware cross-check** | `python -m unittest discover -s tests -v` in `tools/dxl_test_gui` | `.venv` or the container |
+| **Protocol conformance of the real firmware** | `python tools/dxl_test_gui/firmware_check.py --port <COMx or /dev/pts/N>` | Board with the simulation (or target) firmware; or `native_sim` in the container |
+
+The cross-check compiles `src/protocol2.c` into a shared library. It verifies
+that the firmware and the Python codec produce identical packets and that the
+firmware parser accepts the Python packets. It is skipped when `gcc` is not
+available.
+
+`firmware_check.py` sends a fixed sequence of transactions and reports PASS or
+FAIL per check:
+- PING and broadcast PING, identity registers, and Realtime Tick;
+- every error code;
+- SYNC_READ, SYNC_WRITE, REG_WRITE, and ACTION;
+- CRC and stuffing robustness;
+- the gripper servo device, if the controller reports one (protocol, limits,
+  ramp, SYNC_WRITE);
+- on the simulation firmware only: position and velocity motion and telemetry.
+
+It never moves motors on the target firmware unless `--allow-motion` is given.
+To test the complete firmware stack without a board, inside the container:
 
 ```bash
-docker compose -f docker/docker-compose.yml build
+west build -b native_sim/native/64 -s apps/SmartManipulator_Controller -d build-native -- -DFILE_SUFFIX=sim
+build-native/zephyr/zephyr.exe &          # note the /dev/pts/N it prints
+python3 tools/dxl_test_gui/firmware_check.py --port /dev/pts/N
 ```
 
-The Compose build uses the repository root as its context. The Dockerfile installs ROS 2 Jazzy and build dependencies, imports the Robot PC repositories from `ros2_robot.repos`, copies the project packages into the image, and runs `rosdep` and `colcon build`. The result is tagged `smartmanipulator-x-robot:jazzy`.
+This needs `pyserial` in the container Python; the image does not include it
+(`pip install pyserial==3.5`). The motor backends have no
+unit tests; `motor_tmc5160.c` must be tested on hardware.
 
-The upstream manifest currently tracks `jazzy` branches, which may move. For repeatable development, review and pin immutable revisions before relying on a particular image. Rebuild after changing source files, manifests, or Docker configuration: the Compose service does not mount the host source tree into the container.
+## Documentation and PDF manual
 
-## Use the image
+The documentation is the Markdown in `docs/`. `mkdocs.yml` turns it into a
+website and into a printable A4 manual with a cover page, a table of contents
+with page numbers, numbered chapters, headings and figures, a running header,
+and page numbers. The `print-site` plugin combines all pages into
+`site/print_page/`, and `tools/docs/build_pdf.py` prints that page with
+Chromium (through Playwright) and adds PDF bookmarks.
 
-### Software development without hardware
+The docs tools are in `requirements.txt`, so the repository `.venv` of the
+GUI has them. The **Build PDF documentation** menu action (or the
+*Docs: Build PDF* task) does the steps below. By hand:
 
-After building the image, start its default shell without the USB mapping:
+```powershell
+# Windows (PowerShell, repository root)
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe tools\docs\build_pdf.py
+```
+
+```sh
+# Linux (repository root)
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m playwright install chromium     # once; Windows uses Edge instead
+.venv/bin/python tools/docs/build_pdf.py
+```
+
+The result is `site/SmartManipulator-X-Controller.pdf`. The cover shows the
+`git describe` version and the build date.
+
+| Command | Result |
+| --- | --- |
+| `python -m mkdocs serve` | Live HTML preview at <http://127.0.0.1:8000>; the combined print view is at `/print_page/` |
+| `python -m mkdocs build` | Static website in `site/` (strict mode: a broken link or missing file fails the build) |
+| `python tools/docs/build_pdf.py` | Runs `mkdocs build`, then writes the PDF |
+| `... build_pdf.py --output manual.pdf` | Writes the PDF elsewhere |
+| `... build_pdf.py --browser msedge` | Uses a specific browser: `chromium` (Playwright), `msedge`, or `chrome`. The default `auto` tries them in that order. |
+| `... build_pdf.py --mermaid-js mermaid.min.js` | Offline build: serves a local Mermaid 11 script instead of loading it from unpkg.com |
+
+Writing rules that keep the PDF correct:
+
+- Start every page with exactly one `# Title`. Chapter and heading numbers are
+  added automatically, so do not number headings by hand.
+- A new page must also be added to `nav` in `mkdocs.yml`, otherwise it is
+  missing from the site and the PDF.
+- An image on a line of its own, `![Caption](images/file.png)`, becomes a
+  numbered figure, and its alt text becomes the caption (`tools/docs/hooks.py`).
+- Link to other pages with relative `.md` paths (`../gui/index.md#starting`);
+  strict mode then checks them.
+- Mermaid diagrams (` ```mermaid `) are rendered in the browser. Tall diagrams
+  are scaled down to fit on one page.
+- Print styling lives in `docs/assets/stylesheets/print.css`, and the cover page
+  in `tools/docs/cover_page.tpl`.
+
+MkDocs is pinned below 2.0, because MkDocs 2.0 removes the plugin system that
+the theme and the PDF build depend on.
+
+## Code style
+
+`clang-format.txt` holds the formatting configuration (LLVM-based, with
+embedded-systems customizations). clang-format looks for a file named `.clang-format`, so
+either pass the file explicitly (`clang-format --style=file:clang-format.txt`)
+or copy it to `.clang-format`.
+
+## Line endings
+
+`.gitattributes` makes every text file LF in the working tree, including on
+Windows. The exceptions are `*.bat`, `*.cmd`, and `*.ps1`, which use CRLF. Bash
+in the container fails on CRLF scripts (`$'\r': command not found`). If an old
+clone still has CRLF files, commit your work and then run:
 
 ```bash
-docker run --rm -it smartmanipulator-x-robot:jazzy
+git rm -r --cached -q . && git reset --hard
 ```
 
-The entrypoint sources ROS Jazzy and the built workspace. The default command is Bash. Inspect the available project and DYNAMIXEL packages with:
+## Docker without VS Code
 
 ```bash
-ros2 pkg list | grep -E '^(dynamixel_sdk|dynamixel_interfaces|dynamixel_hardware_interface|smartmanipulator_x_)'
+docker build -t zephyr-sf2:1.0.0 .
+docker run --rm -it -v "$PWD:/workspace" -v "$PWD/.ccache:/ccache" -w /workspace zephyr-sf2:1.0.0
+# or, using compose.yaml (runs the default build):
+docker compose run --rm zephyr
 ```
 
-Changes made only inside this temporary container are discarded when it exits. Make source changes in the host checkout, rebuild the image, and start a new container to test them.
+## Debugging
 
-### Robot PC with SmartFusion2
+Debug with `zephyr.elf` through VS Code, Cortex-Debug, GDB, and a
+SmartFusion2-compatible debug probe. The probe configuration depends on the
+board setup and is not yet defined here. The host UART carries binary Protocol
+2.0 traffic, so there is no text console. Use a debugger, or route diagnostics
+to the spare `uart1` with an explicit DeviceTree and Kconfig change.
 
-The hardware workflow requires Ubuntu 24.04 Linux with Docker Engine. Connect the board and check that it appears on the host:
+## Updating tool versions
 
-```bash
-lsusb
-ls -l /dev/ttyACM0
-```
+1. Change the `ARG` in the `Dockerfile` (and its SHA-256 for downloaded
+   archives).
+2. Rebuild the image (`docker build --no-cache ...` or **Rebuild Container**).
+3. Build, make a pristine build, and run the host tests.
+4. Test on the M2S Hello FPGA Kit.
+5. Bump the image tag and update the version tables (this page and the
+   `zephyr-smartfusion2` skill).
 
-Ensure the host user and container can access the serial device. If the board uses another `/dev/ttyACM*` path, update the device mapping in `docker/docker-compose.yml`. Then run:
+## CI
 
-```bash
-docker compose -f docker/docker-compose.yml run --rm smartmanipulator_x
-```
+CI should use the same `Dockerfile`: build the image, run `west update`, build
+both variants (`build` and `build-sim`), and archive `zephyr.elf/.hex/.bin`.
+Run the codec tests as well. Run the `native_sim` build together with
+`firmware_check.py` as an end-to-end protocol test.
+Persist `/ccache` through the CI cache. A firmware-only pipeline needs no
+Libero and no Microchip licenses.
 
-This starts an interactive shell with `/dev/ttyACM0` passed into the container. Type `exit` to stop it; `--rm` removes the temporary container. Docker Desktop on Windows does not expose a Linux `/dev/ttyACM0` device through this configuration, so use the Linux Robot PC for physical hardware access.
+## Licenses and secrets
 
-The image contains the Robot PC ROS/control dependencies only. MoveIt 2, RViz2, Gazebo, and Operator PC workflows belong to the separate Operator PC environment. The current project bringup and controller configuration are scaffolds; building or entering the image does not validate motion or SmartFusion2 compatibility.
+Never commit or bake into images: Microchip license files, license server
+credentials, tokens, keys, or proprietary binaries. Keep Libero on the host.
 
-## Development roadmap
+## Troubleshooting
 
-1. **Freeze inputs and boundaries.** Record the BCN3D Moveo mechanical source revision and applicable asset license. Verify the required ROS 2 Jazzy upstream repositories and pin immutable commits or tags for reproducible builds. Keep firmware and Operator PC implementations in their designated repositories.
-2. **Establish the Moveo model.** Integrate the Moveo geometry into `smartmanipulator_x_description`. Verify frames, joint types and axes, joint limits, collision geometry, and the assembled robot. Define measured joint-to-stepper mappings and required driver/sensor hardware; do not reuse OpenMANIPULATOR-X joint configuration by assumption.
-3. **Verify the host contract.** Inspect the pinned ROBOTIS `dynamixel_hardware_interface`, DynamixelSDK, and relevant OpenMANIPULATOR ROS 2 sources. Record required Protocol 2.0 operations, register accesses, command/state interfaces, operating modes, initialization, timing, and failure behavior in `../dynamixel/compatibility-spec.md`.
-4. **Validate the ROS stack without SmartFusion2.** Build the Robot PC workspace and validate the selected OpenMANIPULATOR software components and the project Moveo description independently. Select controller names, joint names, update rates, and parameter schemas from verified sources and the Moveo model.
-5. **Implement and test one virtual actuator.** In the separate firmware repository, implement USB CDC and the minimum verified DYNAMIXEL-device behavior. Test framing, device discovery, required reads/writes, status/error responses, and timeout behavior against the actual host implementation.
-6. **Bring up one physical axis.** Confirm the stepper driver, electrical limits, reference/homing method, position conversion, travel limits, and stop behavior. Test small motions at conservative settings before scaling out.
-7. **Integrate the complete robot and simulation.** Validate all Moveo axes, controller switching and state reporting. Configure Gazebo in the Operator PC repository using the same robot description and joint semantics as hardware.
-8. **Validate two-computer operation.** Configure ROS 2 DDS domain/network settings and verify planning/execution from Operator PC to Robot PC without routing the USB device to the Operator PC.
-
-## Current repository state
-
-- The Robot PC Docker profile and ROS package scaffolds exist. The Docker profile is not evidence of successful physical operation.
-- The project robot-description package has empty URDF and mesh placeholders. No Moveo model is integrated yet.
-- `hardware.yaml` is a template; `controllers.yaml` has no controller parameters. A physical launch configuration and plugin selection are not complete.
-- SmartFusion2 firmware and the Operator PC application are outside this repository.
-- DYNAMIXEL compatibility values remain unverified; the compatibility table must not be filled with inferred XM430 values.
-
-## Validation boundaries
-
-Use `.venv`'s Python to run `python -m mkdocs build --strict` for documentation changes and the Docker image build to verify that the Robot PC workspace compiles. Hardware-in-the-loop checks must be performed on the actual target host and board; they cannot be inferred from a documentation build or container compile. Follow the staged roadmap before enabling motion.
+| Symptom | Fix |
+| --- | --- |
+| `$'\r': command not found` in a `.vscode/*.sh` task | CRLF line endings; see [Line endings](#line-endings) |
+| `west: command not found` | Not inside the container; `which west` should print `/opt/venv/bin/west` |
+| `source directory "." does not contain a CMakeLists.txt` | Add `-s apps/SmartManipulator_Controller`, or use the menu |
+| `arm-zephyr-eabi-gcc: command not found` | `PATH` must contain `/opt/zephyr-sdk/gnu/arm-zephyr-eabi/bin`; rebuild the container |
+| Strange build after `prj.conf` / overlay changes | Pristine build (`-p always`) |
+| IntelliSense errors | Build once so `build/compile_commands.json` exists |
+| ccache shows no hits | `echo $CCACHE_DIR` should print `/ccache`; check that `.ccache/` exists on the host |
+| GUI: `No module named serial` | Use the `.venv` interpreter, or run **Create .venv** |
+| GUI: `No module named tkinter` | Reinstall Python from python.org with Tcl/Tk, or `apt install python3-tk` |
+| GUI: timeouts on every ID | Wrong COM port or baud rate (kit USB port: 460800; choose **Auto** to detect it), PIC32 not switched to UART (`&`, checkbox **PIC32 bridge**), board not powered, firmware not running, or the UART still has a text console |

@@ -305,7 +305,6 @@ SmartManipulator-X/
    ├── mechanical/index.md
    ├── robot-pc/index.md
    ├── operator-pc/index.md
-   ├── smartfusion2/index.md
    ├── dynamixel/compatibility-spec.md
    └── development/index.md
 ```

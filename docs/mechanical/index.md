@@ -26,7 +26,7 @@ When integrating the model:
 - Keep MoveIt planning groups, `ros2_control` joints, Gazebo joints, and physical motor mapping consistent.
 - Preserve upstream license and attribution notices for imported or adapted assets. Do not assume that the project repository's license changes third-party asset licensing.
 
-The exact axis count, joint naming, dimensions, limits, stepper specifications, driver model, and sensing approach remain to be verified for the selected mechanical build. They are deliberately not inferred here from the project name.
+The electronics are selected in this repository: six BTT TMC5160T Pro drivers and the stepper motors per joint listed in [Axes and motors](../hardware/wiring.md#axes-and-motors) (J1 base, J2 shoulder with two motors, J3 elbow, J4 forearm roll, J5 wrist), plus an MG996R gripper servo; the joint-to-motor assignment is in `include/motor/motor_axes.h`. Joint naming in the ROS model, dimensions, limits, gear ratios and the sensing approach remain to be verified for the selected mechanical build. They are deliberately not inferred here from the project name.
 
 ## Acceptance checks
 

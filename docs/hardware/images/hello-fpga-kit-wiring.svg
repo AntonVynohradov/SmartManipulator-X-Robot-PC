@@ -1,0 +1,375 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1080" width="1500" height="1080" font-family="Segoe UI, DejaVu Sans, Arial, sans-serif" font-size="13" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo2NzYxYzVmMy1hMTBiLTQ2YmItYjg3MC1hNWIzMDY2Njk0NGQAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaOIFeO969PGgQ+0lupBGc5AAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDplYjg5ZTMyZS01MGNjLTRkY2UtOTc0Yi03YzlhMmNmNzExYTNscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoT+TERHOx94pgviBFZZXBBAAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggFB/ikQVtcna1oBs9n691u56ahNe5jZqEkDGvlXvXKhykZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaDpYNDNKod9hu1YcBc3egjwAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCCW09cQyFpSuB5ezv/zJHJDkP2L2+6OAo08hn7/Pm6nwWRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBjgZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjY3NjFjNWYzLWExMGItNDZiYi1iODcwLWE1YjMwNjY2OTQ0ZC9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjE3Zjk2NjViLWY0NTAtNDBjYS05YzAwLTczNzVkNDc1ZTdmOHJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCAUH+KRBW1ydrWgGz2fr3W7npqE17mNmoSQMa+Ve9cqHKJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggkfsh9/T3r8eOiHdE8myKXW/LC25vVn7nqy79EddeVpyiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggZVYxQ3FHdaVplPbfJslAuQp7zNypjdNSEcS7jDAvyJJ0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQFX8MGtgil/2C1rqsUNBvPoP9ekIzAAWhTzezf2b9J8HdtsVDT61bafGNGcvDTIxkmrvu4VmRudCBurDU8zl89E=</c2pa:manifest></metadata>
+<title>Hello FPGA Kit to 6x TMC5160 direct wiring (stage 1, Rev. D)</title>
+<rect width="1500" height="1080" fill="#ffffff"/>
+<style>.box{fill:#f8f9fa;stroke:#3c4043;stroke-width:1.5}.kit{fill:#e8f0fe;stroke:#1a73e8;stroke-width:2}.mod{fill:#fef7e0;stroke:#b06000;stroke-width:1.5}.mot{fill:#e6f4ea;stroke:#188038;stroke-width:1.5}.pwr{fill:#fce8e6;stroke:#c5221f;stroke-width:1.5}.t{fill:#202124}.s{fill:#5f6368;font-size:11px}.h{font-weight:bold;font-size:15px;fill:#202124}.pin{font-family:Consolas,DejaVu Sans Mono,monospace;font-size:11.5px;fill:#202124}.w{fill:none;stroke-width:2}</style>
+<text x="30" y="34" class="h" text-anchor="start" >SmartManipulator-X — Hello FPGA Kit → 6× TMC5160 direct wiring (stage 1, SPI only)</text>
+<text x="30" y="54" class="s" text-anchor="start" >Source: Wiring_RevD_DirectWiring_EN (draft Rev. D, 2026-10-07, for review – not released). Logic wires: Dupont m/f ≤ 30 cm, 3.3 V levels only.</text>
+<rect x="30" y="90" width="330" height="690" rx="10" class="kit"/>
+<text x="44" y="116" class="h" text-anchor="start" >Hello FPGA Kit</text>
+<text x="44" y="134" class="s" text-anchor="start" >SmartFusion2 M2S010-VF256 · Arduino headers</text>
+<text x="44" y="174" class="pin" text-anchor="start" >J7-6 IO13</text>
+<text x="158" y="174" class="pin" text-anchor="start" >R13</text>
+<text x="346" y="174" class="t" text-anchor="end" >SPI SCK</text>
+<rect x="355" y="165" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="214" class="pin" text-anchor="start" >J7-4 IO11</text>
+<text x="158" y="214" class="pin" text-anchor="start" >R11</text>
+<text x="346" y="214" class="t" text-anchor="end" >SPI MOSI</text>
+<rect x="355" y="205" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="254" class="pin" text-anchor="start" >J7-5 IO12</text>
+<text x="158" y="254" class="pin" text-anchor="start" >T11</text>
+<text x="346" y="254" class="t" text-anchor="end" >SPI MISO</text>
+<rect x="355" y="245" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="294" class="pin" text-anchor="start" >J7-3 IO10</text>
+<text x="158" y="294" class="pin" text-anchor="start" >M10</text>
+<text x="346" y="294" class="t" text-anchor="end" >CS0</text>
+<rect x="355" y="285" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="334" class="pin" text-anchor="start" >J7-1 IO8</text>
+<text x="158" y="334" class="pin" text-anchor="start" >R10</text>
+<text x="346" y="334" class="t" text-anchor="end" >CS1</text>
+<rect x="355" y="325" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="374" class="pin" text-anchor="start" >J8-8 IO7</text>
+<text x="158" y="374" class="pin" text-anchor="start" >T7</text>
+<text x="346" y="374" class="t" text-anchor="end" >CS2</text>
+<rect x="355" y="365" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="414" class="pin" text-anchor="start" >J8-7 IO6</text>
+<text x="158" y="414" class="pin" text-anchor="start" >T8</text>
+<text x="346" y="414" class="t" text-anchor="end" >CS3</text>
+<rect x="355" y="405" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="454" class="pin" text-anchor="start" >J8-6 IO5</text>
+<text x="158" y="454" class="pin" text-anchor="start" >P10</text>
+<text x="346" y="454" class="t" text-anchor="end" >CS4</text>
+<rect x="355" y="445" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="494" class="pin" text-anchor="start" >J8-5 IO4</text>
+<text x="158" y="494" class="pin" text-anchor="start" >R9</text>
+<text x="346" y="494" class="t" text-anchor="end" >CS5</text>
+<rect x="355" y="485" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="534" class="pin" text-anchor="start" >J9-4 3V3</text>
+<text x="158" y="534" class="pin" text-anchor="start" >–</text>
+<text x="346" y="534" class="t" text-anchor="end" >3V3 → VIO</text>
+<rect x="355" y="525" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="574" class="pin" text-anchor="start" >J9-6/7 GND</text>
+<text x="158" y="574" class="pin" text-anchor="start" >–</text>
+<text x="346" y="574" class="t" text-anchor="end" >GND</text>
+<rect x="355" y="565" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="614" class="pin" text-anchor="start" >J8-4 IO3</text>
+<text x="158" y="614" class="pin" text-anchor="start" >N7</text>
+<text x="346" y="614" class="t" text-anchor="end" >SERVO-PWM</text>
+<rect x="355" y="605" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="654" class="pin" text-anchor="start" >J8-1 IO0</text>
+<text x="158" y="654" class="pin" text-anchor="start" >F3</text>
+<text x="346" y="654" class="t" text-anchor="end" >UART RX (spare)</text>
+<rect x="355" y="645" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="694" class="pin" text-anchor="start" >J8-2 IO1</text>
+<text x="158" y="694" class="pin" text-anchor="start" >G3</text>
+<text x="346" y="694" class="t" text-anchor="end" >UART TX (spare)</text>
+<rect x="355" y="685" width="10" height="10" fill="#ffffff" stroke="#1a73e8"/>
+<text x="44" y="148" class="s" text-anchor="start" >Header pin</text>
+<text x="158" y="148" class="s" text-anchor="start" >Ball</text>
+<text x="346" y="148" class="s" text-anchor="end" >Signal</text>
+<rect x="30" y="810" width="330" height="100" rx="8" class="box"/>
+<text x="44" y="834" class="h" text-anchor="start" >Robot PC  ⇄  USB Mini-B (kit)</text>
+<text x="44" y="856" class="t" text-anchor="start" >USB → MCP2221A → PIC32 → MMUART_0 (uart0)</text>
+<text x="44" y="876" class="t" text-anchor="start" >PC side 460800 bps · to SF2 230400 bps</text>
+<text x="44" y="894" class="s" text-anchor="start" >send "&amp;" first · /dev/ttyACM0 · COMx</text>
+<path d="M195.0,780 L195.0,810" class="w" stroke="#5f6368" stroke-width="3"/>
+<path d="M365,170 L420,170" class="w" stroke="#1a73e8" stroke-width="2"/>
+<circle cx="420" cy="170" r="3.5" fill="#1a73e8"/>
+<path d="M365,210 L440,210" class="w" stroke="#188038" stroke-width="2"/>
+<circle cx="440" cy="210" r="3.5" fill="#188038"/>
+<path d="M365,250 L460,250" class="w" stroke="#e37400" stroke-width="2"/>
+<circle cx="460" cy="250" r="3.5" fill="#e37400"/>
+<path d="M365,530 L480,530" class="w" stroke="#c5221f" stroke-width="2"/>
+<circle cx="480" cy="530" r="3.5" fill="#c5221f"/>
+<path d="M365,570 L500,570" class="w" stroke="#202124" stroke-width="2"/>
+<circle cx="500" cy="570" r="3.5" fill="#202124"/>
+<path d="M420,170 L420,730" class="w" stroke="#1a73e8" stroke-width="2"/>
+<path d="M440,210 L440,746" class="w" stroke="#188038" stroke-width="2"/>
+<path d="M460,250 L460,762" class="w" stroke="#e37400" stroke-width="2"/>
+<path d="M480,530 L480,778" class="w" stroke="#c5221f" stroke-width="2"/>
+<path d="M500,570 L500,794" class="w" stroke="#202124" stroke-width="2"/>
+<path d="M365,290 L530,290 L530,104 L640,104" class="w" stroke="#8430ce" stroke-width="2"/>
+<path d="M365,330 L544,330 L544,226 L640,226" class="w" stroke="#8430ce" stroke-width="2"/>
+<path d="M365,370 L558,370 L558,348 L640,348" class="w" stroke="#8430ce" stroke-width="2"/>
+<path d="M365,410 L572,410 L572,470 L640,470" class="w" stroke="#8430ce" stroke-width="2"/>
+<path d="M365,450 L586,450 L586,592 L640,592" class="w" stroke="#8430ce" stroke-width="2"/>
+<path d="M365,490 L600,490 L600,714 L640,714" class="w" stroke="#8430ce" stroke-width="2"/>
+<rect x="640" y="90" width="250" height="112" rx="6" class="mod"/>
+<text x="735" y="86" class="s" text-anchor="middle" ></text>
+<rect x="636" y="100" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="108" class="pin" text-anchor="start" >CSN</text>
+<rect x="636" y="116" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="124" class="pin" text-anchor="start" >SCK</text>
+<path d="M420,120 L636,120" class="w" stroke="#1a73e8" stroke-width="1.5"/>
+<circle cx="420" cy="120" r="3.5" fill="#1a73e8"/>
+<rect x="636" y="132" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="140" class="pin" text-anchor="start" >SDI</text>
+<path d="M440,136 L636,136" class="w" stroke="#188038" stroke-width="1.5"/>
+<circle cx="440" cy="136" r="3.5" fill="#188038"/>
+<rect x="636" y="148" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="156" class="pin" text-anchor="start" >SDO</text>
+<path d="M460,152 L636,152" class="w" stroke="#e37400" stroke-width="1.5"/>
+<circle cx="460" cy="152" r="3.5" fill="#e37400"/>
+<rect x="636" y="164" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="172" class="pin" text-anchor="start" >VIO</text>
+<path d="M480,168 L636,168" class="w" stroke="#c5221f" stroke-width="1.5"/>
+<circle cx="480" cy="168" r="3.5" fill="#c5221f"/>
+<rect x="636" y="180" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="188" class="pin" text-anchor="start" >GND</text>
+<path d="M500,184 L636,184" class="w" stroke="#202124" stroke-width="1.5"/>
+<circle cx="500" cy="184" r="3.5" fill="#202124"/>
+<text x="698" y="112" class="h" text-anchor="start" >A0 · TMC5160</text>
+<text x="698" y="130" class="s" text-anchor="start" >SilentStepStick v1.5</text>
+<text x="698" y="146" class="s" text-anchor="start" >motion-controller mode</text>
+<text x="698" y="162" class="s" text-anchor="start" >SD_MODE=0 · SPI_MODE=1</text>
+<text x="698" y="178" class="s" text-anchor="start" >EN→GND · CLK→GND</text>
+<text x="698" y="194" class="s" text-anchor="start" >STEP/DIR (REFL/R)→GND</text>
+<rect x="960" y="100" width="250" height="92" rx="6" class="mot"/>
+<text x="972" y="122" class="h" text-anchor="start" >J1 · Base</text>
+<text x="972" y="142" class="t" text-anchor="start" >NEMA17 17HS19-2504S</text>
+<text x="972" y="160" class="t" text-anchor="start" >I = 2.5 A</text>
+<text x="972" y="178" class="s" text-anchor="start" >DYNAMIXEL ID 1 → axis 0 → CS0</text>
+<path d="M890,130 L960,130" class="w" stroke="#188038" stroke-width="3"/>
+<text x="925" y="124" class="s" text-anchor="middle" >A1 A2 B1 B2</text>
+<rect x="640" y="212" width="250" height="112" rx="6" class="mod"/>
+<text x="735" y="208" class="s" text-anchor="middle" ></text>
+<rect x="636" y="222" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="230" class="pin" text-anchor="start" >CSN</text>
+<rect x="636" y="238" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="246" class="pin" text-anchor="start" >SCK</text>
+<path d="M420,242 L636,242" class="w" stroke="#1a73e8" stroke-width="1.5"/>
+<circle cx="420" cy="242" r="3.5" fill="#1a73e8"/>
+<rect x="636" y="254" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="262" class="pin" text-anchor="start" >SDI</text>
+<path d="M440,258 L636,258" class="w" stroke="#188038" stroke-width="1.5"/>
+<circle cx="440" cy="258" r="3.5" fill="#188038"/>
+<rect x="636" y="270" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="278" class="pin" text-anchor="start" >SDO</text>
+<path d="M460,274 L636,274" class="w" stroke="#e37400" stroke-width="1.5"/>
+<circle cx="460" cy="274" r="3.5" fill="#e37400"/>
+<rect x="636" y="286" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="294" class="pin" text-anchor="start" >VIO</text>
+<path d="M480,290 L636,290" class="w" stroke="#c5221f" stroke-width="1.5"/>
+<circle cx="480" cy="290" r="3.5" fill="#c5221f"/>
+<rect x="636" y="302" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="310" class="pin" text-anchor="start" >GND</text>
+<path d="M500,306 L636,306" class="w" stroke="#202124" stroke-width="1.5"/>
+<circle cx="500" cy="306" r="3.5" fill="#202124"/>
+<text x="698" y="234" class="h" text-anchor="start" >A1a · TMC5160</text>
+<text x="698" y="252" class="s" text-anchor="start" >SilentStepStick v1.5</text>
+<text x="698" y="268" class="s" text-anchor="start" >motion-controller mode</text>
+<text x="698" y="284" class="s" text-anchor="start" >SD_MODE=0 · SPI_MODE=1</text>
+<text x="698" y="300" class="s" text-anchor="start" >EN→GND · CLK→GND</text>
+<text x="698" y="316" class="s" text-anchor="start" >STEP/DIR (REFL/R)→GND</text>
+<rect x="960" y="222" width="250" height="92" rx="6" class="mot"/>
+<text x="972" y="244" class="h" text-anchor="start" >J2 · Shoulder a</text>
+<text x="972" y="264" class="t" text-anchor="start" >NEMA23 23HS22-2804S</text>
+<text x="972" y="282" class="t" text-anchor="start" >I = 2.8 A</text>
+<text x="972" y="300" class="s" text-anchor="start" >DYNAMIXEL ID 2 → axis 1 → CS1</text>
+<path d="M890,252 L960,252" class="w" stroke="#188038" stroke-width="3"/>
+<text x="925" y="246" class="s" text-anchor="middle" >A1 A2 B1 B2</text>
+<rect x="640" y="334" width="250" height="112" rx="6" class="mod"/>
+<text x="735" y="330" class="s" text-anchor="middle" ></text>
+<rect x="636" y="344" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="352" class="pin" text-anchor="start" >CSN</text>
+<rect x="636" y="360" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="368" class="pin" text-anchor="start" >SCK</text>
+<path d="M420,364 L636,364" class="w" stroke="#1a73e8" stroke-width="1.5"/>
+<circle cx="420" cy="364" r="3.5" fill="#1a73e8"/>
+<rect x="636" y="376" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="384" class="pin" text-anchor="start" >SDI</text>
+<path d="M440,380 L636,380" class="w" stroke="#188038" stroke-width="1.5"/>
+<circle cx="440" cy="380" r="3.5" fill="#188038"/>
+<rect x="636" y="392" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="400" class="pin" text-anchor="start" >SDO</text>
+<path d="M460,396 L636,396" class="w" stroke="#e37400" stroke-width="1.5"/>
+<circle cx="460" cy="396" r="3.5" fill="#e37400"/>
+<rect x="636" y="408" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="416" class="pin" text-anchor="start" >VIO</text>
+<path d="M480,412 L636,412" class="w" stroke="#c5221f" stroke-width="1.5"/>
+<circle cx="480" cy="412" r="3.5" fill="#c5221f"/>
+<rect x="636" y="424" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="432" class="pin" text-anchor="start" >GND</text>
+<path d="M500,428 L636,428" class="w" stroke="#202124" stroke-width="1.5"/>
+<circle cx="500" cy="428" r="3.5" fill="#202124"/>
+<text x="698" y="356" class="h" text-anchor="start" >A1b · TMC5160</text>
+<text x="698" y="374" class="s" text-anchor="start" >SilentStepStick v1.5</text>
+<text x="698" y="390" class="s" text-anchor="start" >motion-controller mode</text>
+<text x="698" y="406" class="s" text-anchor="start" >SD_MODE=0 · SPI_MODE=1</text>
+<text x="698" y="422" class="s" text-anchor="start" >EN→GND · CLK→GND</text>
+<text x="698" y="438" class="s" text-anchor="start" >STEP/DIR (REFL/R)→GND</text>
+<rect x="960" y="344" width="250" height="92" rx="6" class="mot"/>
+<text x="972" y="366" class="h" text-anchor="start" >J2 · Shoulder b</text>
+<text x="972" y="386" class="t" text-anchor="start" >NEMA23 23HS22-2804S</text>
+<text x="972" y="404" class="t" text-anchor="start" >I = 2.8 A · shaft=1</text>
+<text x="972" y="422" class="s" text-anchor="start" >DYNAMIXEL ID 3 → axis 2 → CS2</text>
+<path d="M890,374 L960,374" class="w" stroke="#188038" stroke-width="3"/>
+<text x="925" y="368" class="s" text-anchor="middle" >A1 A2 B1 B2</text>
+<rect x="640" y="456" width="250" height="112" rx="6" class="mod"/>
+<text x="735" y="452" class="s" text-anchor="middle" ></text>
+<rect x="636" y="466" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="474" class="pin" text-anchor="start" >CSN</text>
+<rect x="636" y="482" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="490" class="pin" text-anchor="start" >SCK</text>
+<path d="M420,486 L636,486" class="w" stroke="#1a73e8" stroke-width="1.5"/>
+<circle cx="420" cy="486" r="3.5" fill="#1a73e8"/>
+<rect x="636" y="498" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="506" class="pin" text-anchor="start" >SDI</text>
+<path d="M440,502 L636,502" class="w" stroke="#188038" stroke-width="1.5"/>
+<circle cx="440" cy="502" r="3.5" fill="#188038"/>
+<rect x="636" y="514" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="522" class="pin" text-anchor="start" >SDO</text>
+<path d="M460,518 L636,518" class="w" stroke="#e37400" stroke-width="1.5"/>
+<circle cx="460" cy="518" r="3.5" fill="#e37400"/>
+<rect x="636" y="530" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="538" class="pin" text-anchor="start" >VIO</text>
+<path d="M480,534 L636,534" class="w" stroke="#c5221f" stroke-width="1.5"/>
+<circle cx="480" cy="534" r="3.5" fill="#c5221f"/>
+<rect x="636" y="546" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="554" class="pin" text-anchor="start" >GND</text>
+<path d="M500,550 L636,550" class="w" stroke="#202124" stroke-width="1.5"/>
+<circle cx="500" cy="550" r="3.5" fill="#202124"/>
+<text x="698" y="478" class="h" text-anchor="start" >A2 · TMC5160</text>
+<text x="698" y="496" class="s" text-anchor="start" >SilentStepStick v1.5</text>
+<text x="698" y="512" class="s" text-anchor="start" >motion-controller mode</text>
+<text x="698" y="528" class="s" text-anchor="start" >SD_MODE=0 · SPI_MODE=1</text>
+<text x="698" y="544" class="s" text-anchor="start" >EN→GND · CLK→GND</text>
+<text x="698" y="560" class="s" text-anchor="start" >STEP/DIR (REFL/R)→GND</text>
+<rect x="960" y="466" width="250" height="92" rx="6" class="mot"/>
+<text x="972" y="488" class="h" text-anchor="start" >J3 · Elbow</text>
+<text x="972" y="508" class="t" text-anchor="start" >NEMA17 + PG5 gearbox</text>
+<text x="972" y="526" class="t" text-anchor="start" >I = 1.68 A</text>
+<text x="972" y="544" class="s" text-anchor="start" >DYNAMIXEL ID 4 → axis 3 → CS3</text>
+<path d="M890,496 L960,496" class="w" stroke="#188038" stroke-width="3"/>
+<text x="925" y="490" class="s" text-anchor="middle" >A1 A2 B1 B2</text>
+<rect x="640" y="578" width="250" height="112" rx="6" class="mod"/>
+<text x="735" y="574" class="s" text-anchor="middle" ></text>
+<rect x="636" y="588" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="596" class="pin" text-anchor="start" >CSN</text>
+<rect x="636" y="604" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="612" class="pin" text-anchor="start" >SCK</text>
+<path d="M420,608 L636,608" class="w" stroke="#1a73e8" stroke-width="1.5"/>
+<circle cx="420" cy="608" r="3.5" fill="#1a73e8"/>
+<rect x="636" y="620" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="628" class="pin" text-anchor="start" >SDI</text>
+<path d="M440,624 L636,624" class="w" stroke="#188038" stroke-width="1.5"/>
+<circle cx="440" cy="624" r="3.5" fill="#188038"/>
+<rect x="636" y="636" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="644" class="pin" text-anchor="start" >SDO</text>
+<path d="M460,640 L636,640" class="w" stroke="#e37400" stroke-width="1.5"/>
+<circle cx="460" cy="640" r="3.5" fill="#e37400"/>
+<rect x="636" y="652" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="660" class="pin" text-anchor="start" >VIO</text>
+<path d="M480,656 L636,656" class="w" stroke="#c5221f" stroke-width="1.5"/>
+<circle cx="480" cy="656" r="3.5" fill="#c5221f"/>
+<rect x="636" y="668" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="676" class="pin" text-anchor="start" >GND</text>
+<path d="M500,672 L636,672" class="w" stroke="#202124" stroke-width="1.5"/>
+<circle cx="500" cy="672" r="3.5" fill="#202124"/>
+<text x="698" y="600" class="h" text-anchor="start" >A3 · TMC5160</text>
+<text x="698" y="618" class="s" text-anchor="start" >SilentStepStick v1.5</text>
+<text x="698" y="634" class="s" text-anchor="start" >motion-controller mode</text>
+<text x="698" y="650" class="s" text-anchor="start" >SD_MODE=0 · SPI_MODE=1</text>
+<text x="698" y="666" class="s" text-anchor="start" >EN→GND · CLK→GND</text>
+<text x="698" y="682" class="s" text-anchor="start" >STEP/DIR (REFL/R)→GND</text>
+<rect x="960" y="588" width="250" height="92" rx="6" class="mot"/>
+<text x="972" y="610" class="h" text-anchor="start" >J4 · Forearm roll</text>
+<text x="972" y="630" class="t" text-anchor="start" >NEMA17 34 mm</text>
+<text x="972" y="648" class="t" text-anchor="start" >I = 0.4 A</text>
+<text x="972" y="666" class="s" text-anchor="start" >DYNAMIXEL ID 5 → axis 4 → CS4</text>
+<path d="M890,618 L960,618" class="w" stroke="#188038" stroke-width="3"/>
+<text x="925" y="612" class="s" text-anchor="middle" >A1 A2 B1 B2</text>
+<rect x="640" y="700" width="250" height="112" rx="6" class="mod"/>
+<text x="735" y="696" class="s" text-anchor="middle" ></text>
+<rect x="636" y="710" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="718" class="pin" text-anchor="start" >CSN</text>
+<rect x="636" y="726" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="734" class="pin" text-anchor="start" >SCK</text>
+<path d="M420,730 L636,730" class="w" stroke="#1a73e8" stroke-width="1.5"/>
+<circle cx="420" cy="730" r="3.5" fill="#1a73e8"/>
+<rect x="636" y="742" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="750" class="pin" text-anchor="start" >SDI</text>
+<path d="M440,746 L636,746" class="w" stroke="#188038" stroke-width="1.5"/>
+<circle cx="440" cy="746" r="3.5" fill="#188038"/>
+<rect x="636" y="758" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="766" class="pin" text-anchor="start" >SDO</text>
+<path d="M460,762 L636,762" class="w" stroke="#e37400" stroke-width="1.5"/>
+<circle cx="460" cy="762" r="3.5" fill="#e37400"/>
+<rect x="636" y="774" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="782" class="pin" text-anchor="start" >VIO</text>
+<path d="M480,778 L636,778" class="w" stroke="#c5221f" stroke-width="1.5"/>
+<circle cx="480" cy="778" r="3.5" fill="#c5221f"/>
+<rect x="636" y="790" width="8" height="8" fill="#ffffff" stroke="#b06000"/>
+<text x="650" y="798" class="pin" text-anchor="start" >GND</text>
+<path d="M500,794 L636,794" class="w" stroke="#202124" stroke-width="1.5"/>
+<circle cx="500" cy="794" r="3.5" fill="#202124"/>
+<text x="698" y="722" class="h" text-anchor="start" >A4 · TMC5160</text>
+<text x="698" y="740" class="s" text-anchor="start" >SilentStepStick v1.5</text>
+<text x="698" y="756" class="s" text-anchor="start" >motion-controller mode</text>
+<text x="698" y="772" class="s" text-anchor="start" >SD_MODE=0 · SPI_MODE=1</text>
+<text x="698" y="788" class="s" text-anchor="start" >EN→GND · CLK→GND</text>
+<text x="698" y="804" class="s" text-anchor="start" >STEP/DIR (REFL/R)→GND</text>
+<rect x="960" y="710" width="250" height="92" rx="6" class="mot"/>
+<text x="972" y="732" class="h" text-anchor="start" >J5 · Wrist</text>
+<text x="972" y="752" class="t" text-anchor="start" >NEMA14 14HS20-1504S</text>
+<text x="972" y="770" class="t" text-anchor="start" >I = 1.5 A</text>
+<text x="972" y="788" class="s" text-anchor="start" >DYNAMIXEL ID 6 → axis 5 → CS5</text>
+<path d="M890,740 L960,740" class="w" stroke="#188038" stroke-width="3"/>
+<text x="925" y="734" class="s" text-anchor="middle" >A1 A2 B1 B2</text>
+<rect x="1290" y="90" width="200" height="110" rx="8" class="pwr"/>
+<text x="1302" y="114" class="h" text-anchor="start" >PSU 24 V / ≥ 320 W</text>
+<text x="1302" y="134" class="t" text-anchor="start" >e.g. Mean Well LRS-350-24</text>
+<text x="1302" y="152" class="s" text-anchor="start" >minus = GND star point</text>
+<text x="1302" y="168" class="s" text-anchor="start" >(connect to kit GND J9-6)</text>
+<text x="1302" y="186" class="s" text-anchor="start" >VM via WAGO 221, 0.5 mm²</text>
+<path d="M1290,140 L1268,140 L1268,796" class="w" stroke="#d93025" stroke-width="3"/>
+<path d="M890,186 L1268,186" class="w" stroke="#d93025" stroke-width="2"/>
+<circle cx="1268" cy="186" r="3.5" fill="#d93025"/>
+<text x="898" y="181" class="s" text-anchor="start" >VM · GND</text>
+<path d="M890,308 L1268,308" class="w" stroke="#d93025" stroke-width="2"/>
+<circle cx="1268" cy="308" r="3.5" fill="#d93025"/>
+<text x="898" y="303" class="s" text-anchor="start" >VM · GND</text>
+<path d="M890,430 L1268,430" class="w" stroke="#d93025" stroke-width="2"/>
+<circle cx="1268" cy="430" r="3.5" fill="#d93025"/>
+<text x="898" y="425" class="s" text-anchor="start" >VM · GND</text>
+<path d="M890,552 L1268,552" class="w" stroke="#d93025" stroke-width="2"/>
+<circle cx="1268" cy="552" r="3.5" fill="#d93025"/>
+<text x="898" y="547" class="s" text-anchor="start" >VM · GND</text>
+<path d="M890,674 L1268,674" class="w" stroke="#d93025" stroke-width="2"/>
+<circle cx="1268" cy="674" r="3.5" fill="#d93025"/>
+<text x="898" y="669" class="s" text-anchor="start" >VM · GND</text>
+<path d="M890,796 L1268,796" class="w" stroke="#d93025" stroke-width="2"/>
+<circle cx="1268" cy="796" r="3.5" fill="#d93025"/>
+<text x="898" y="791" class="s" text-anchor="start" >VM · GND</text>
+<rect x="1290" y="865" width="190" height="70" rx="8" class="pwr"/>
+<text x="1302" y="889" class="h" text-anchor="start" >DC/DC 24 → 6 V ≥ 5 A</text>
+<text x="1302" y="909" class="s" text-anchor="start" >servo supply only</text>
+<rect x="960" y="865" width="250" height="110" rx="6" class="mot"/>
+<text x="972" y="889" class="h" text-anchor="start" >Gripper servo MG996R</text>
+<text x="972" y="909" class="t" text-anchor="start" >signal (orange) ← SERVO-PWM</text>
+<text x="972" y="927" class="t" text-anchor="start" >+ (red) ← 6 V · − (brown) → GND</text>
+<text x="972" y="945" class="s" text-anchor="start" >50 Hz, 1–2 ms (CorePWM @ 0x5000_0000)</text>
+<text x="972" y="961" class="s" text-anchor="start" >firmware support: not implemented yet</text>
+<path d="M365,610 L395,610 L395,909 L960,909" class="w" stroke="#b80672" stroke-width="2"/>
+<path d="M1290,927 L1210,927" class="w" stroke="#e8710a" stroke-width="2"/>
+<path d="M1268,796 L1268,855 L1385,855 L1385,865" class="w" stroke="#d93025" stroke-width="2"/>
+<path d="M365,650 L380,650" class="w" stroke="#5f6368" stroke-width="1.5" stroke-dasharray="4 3"/>
+<path d="M365,690 L380,690" class="w" stroke="#5f6368" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="346" y="714" class="s" text-anchor="end" >spare: 3.3 V USB-UART cable (FTDI TTL-232R-3V3)</text>
+<path d="M30,1040 L56,1040" class="w" stroke="#1a73e8" stroke-width="3"/>
+<text x="62" y="1044" class="s" text-anchor="start" >SPI SCK</text>
+<path d="M190,1040 L216,1040" class="w" stroke="#188038" stroke-width="3"/>
+<text x="222" y="1044" class="s" text-anchor="start" >MOSI → SDI</text>
+<path d="M350,1040 L376,1040" class="w" stroke="#e37400" stroke-width="3"/>
+<text x="382" y="1044" class="s" text-anchor="start" >SDO → MISO</text>
+<path d="M510,1040 L536,1040" class="w" stroke="#8430ce" stroke-width="3"/>
+<text x="542" y="1044" class="s" text-anchor="start" >chip selects CS0–CS5</text>
+<path d="M670,1040 L696,1040" class="w" stroke="#c5221f" stroke-width="3"/>
+<text x="702" y="1044" class="s" text-anchor="start" >3V3 → VIO</text>
+<path d="M830,1040 L856,1040" class="w" stroke="#202124" stroke-width="3"/>
+<text x="862" y="1044" class="s" text-anchor="start" >GND</text>
+<path d="M990,1040 L1016,1040" class="w" stroke="#d93025" stroke-width="3"/>
+<text x="1022" y="1044" class="s" text-anchor="start" >24 V VM</text>
+<path d="M1150,1040 L1176,1040" class="w" stroke="#b80672" stroke-width="3"/>
+<text x="1182" y="1044" class="s" text-anchor="start" >servo PWM</text>
+<text x="30" y="1066" class="s" text-anchor="start" >SPI mode 3, ≤ 2 MHz · SDO is high-Z while CSN is high, so MISO is shared · never route VM or motor phases over Dupont/breadboard · never plug motors while powered</text>
+</svg>

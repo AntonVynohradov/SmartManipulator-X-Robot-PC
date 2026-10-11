@@ -1,21 +1,150 @@
+# MkDocs configuration for the SmartManipulator-X documentation.
+#
+#   HTML preview:  mkdocs serve
+#   HTML site:     mkdocs build            (output: site/)
+#   PDF manual:    python tools/docs/build_pdf.py   (output: site/SmartManipulator-X.pdf)
+#
+# Dependencies: requirements-docs.txt.
+
 site_name: SmartManipulator-X
-site_description: OpenMANIPULATOR-X software concepts, SmartFusion2 control, and BCN3D Moveo mechanics
+site_description: >-
+  OpenMANIPULATOR-X software concepts on BCN3D Moveo mechanics: ROS 2 Robot PC,
+  SmartFusion2 controller firmware exposing the stepper axes as virtual
+  DYNAMIXEL devices, hardware and wiring.
+site_author: Anton Vynohradov
+site_url: https://antonvynohradov.github.io/SmartManipulator-X-Robot-PC/
+repo_url: https://github.com/AntonVynohradov/SmartManipulator-X-Robot-PC
+edit_uri: ""
+
 docs_dir: docs
 site_dir: site
-site_url: https://antonvynohradov.github.io/SmartManipulator-X-Robot-PC/
 strict: true
 
-theme:
-  name: readthedocs
-
 nav:
-  - Home: index.md
-  - Architecture:
-      - System overview: architecture/index.md
-      - BCN3D Moveo mechanics: mechanical/index.md
-  - Computers:
+  - Overview: index.md
+  - Guides:
+      - Getting started: getting-started.md
+      - Development environment: development/index.md
+  - Firmware:
+      - Firmware architecture: firmware/index.md
+      - Motor tester GUI: gui/index.md
+  - Hardware:
+      - Hello FPGA Kit wiring: hardware/wiring.md
+      - TMC5160 driver modules: hardware/tmc5160.md
+      - Gripper servo (MG996R): hardware/servo.md
+  - System context:
+      - System architecture: architecture/index.md
+      - DYNAMIXEL compatibility: dynamixel/compatibility-spec.md
       - Robot PC: robot-pc/index.md
       - Operator PC: operator-pc/index.md
-  - SmartFusion2 firmware: smartfusion2/index.md
-  - DYNAMIXEL compatibility: dynamixel/compatibility-spec.md
-  - Development: development/index.md
+      - BCN3D Moveo mechanics: mechanical/index.md
+
+theme:
+  name: material
+  custom_dir: overrides  # home page banner, PDF button in the header
+  language: en
+  logo: assets/images/logo.svg
+  favicon: assets/images/logo.svg
+  font:
+    text: Inter
+    code: JetBrains Mono
+  palette:
+    # First entry: follow the system setting. The PDF build emulates a light
+    # screen, so the printed manual always uses the light scheme.
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to system preference
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tooltips
+
+extra:
+  generator: false
+  pdf: SmartManipulator-X.pdf   # written to site/ by tools/docs/build_pdf.py
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/AntonVynohradov/SmartManipulator-X-Robot-PC
+      name: Robot PC repository
+    - icon: fontawesome/brands/github
+      link: https://github.com/AntonVynohradov/SmartManipulator-X-Controller
+      name: Controller firmware repository
+  # Shown on the PDF cover page. tools/docs/build_pdf.py sets both variables
+  # (git describe and today's date); plain `mkdocs build` uses the defaults.
+  doc_version: !ENV [SMX_DOCS_VERSION, "development snapshot"]
+  doc_date: !ENV [SMX_DOCS_DATE, ""]
+
+copyright: Copyright &copy; 2026 Anton Vynohradov &middot; Apache License 2.0
+
+extra_css:
+  - assets/stylesheets/extra.css   # website look (screen only)
+  - assets/stylesheets/print.css   # PDF manual layout
+
+hooks:
+  - tools/docs/hooks.py      # captioned figures from plain Markdown images
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      title: Contents
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+plugins:
+  - search
+  # Must be the last plugin: it combines all pages into site/print_page/,
+  # which tools/docs/build_pdf.py prints to PDF.
+  - print-site:
+      add_to_navigation: false
+      print_page_title: SmartManipulator-X
+      add_cover_page: true
+      cover_page_template: tools/docs/cover_page.tpl
+      add_table_of_contents: true
+      toc_title: Table of contents
+      toc_depth: 4
+      enumerate_headings: true
+      enumerate_figures: true
+      add_full_urls: false
+      add_print_site_banner: false

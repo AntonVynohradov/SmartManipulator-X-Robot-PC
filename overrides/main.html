@@ -1,0 +1,77 @@
+{#-
+  Website-only additions to mkdocs-material. The combined print page
+  (site/print_page/, used for the PDF) is not the home page, so none of this
+  appears in the PDF manual.
+
+  Home page: a banner with the project summary and download buttons, and one
+  card per navigation section. The cards are generated from the navigation in
+  mkdocs.yml, so every page added there is linked automatically; the icon and
+  the one-line description of a section come from `sections` in the hero block.
+-#}
+{% extends "base.html" %}
+
+{% block hero %}
+  {% set sections = {
+    "Guides": ("material/rocket-launch", "From a fresh clone to a built firmware image, and the full development environment."),
+    "Firmware": ("material/chip", "Zephyr firmware on the SmartFusion2 and the DYNAMIXEL motor tester GUI."),
+    "Hardware": ("material/expansion-card", "Hello FPGA Kit wiring, TMC5160 stepper drivers and the MG996R gripper servo."),
+    "System context": ("material/sitemap", "Architecture, DYNAMIXEL contract, Robot PC, Operator PC and Moveo mechanics."),
+  } %}
+  {% if page.is_homepage %}
+    <section class="smx-hero">
+      <div class="smx-hero__inner md-grid">
+        <div class="smx-hero__text">
+          <p class="smx-hero__kicker">Robot arm project</p>
+          <h1 class="smx-hero__title">{{ config.site_name }}</h1>
+          <p class="smx-hero__lead">
+            ROBOTIS OpenMANIPULATOR-X control concepts on BCN3D Moveo mechanics.
+            A SmartFusion2 controller drives six stepper axes and the gripper as
+            virtual DYNAMIXEL devices for a ROS 2 Jazzy Robot PC.
+          </p>
+          <div class="smx-hero__actions">
+            <a href="{{ 'getting-started/' | url }}" class="md-button md-button--primary smx-hero__button">
+              {% include ".icons/material/rocket-launch.svg" %} Get started
+            </a>
+            {% if config.extra.pdf %}
+              <a href="{{ config.extra.pdf | url }}" class="md-button smx-hero__button smx-hero__button--ghost" download>
+                {% include ".icons/material/file-pdf-box.svg" %} Download PDF
+              </a>
+            {% endif %}
+            {% if config.repo_url %}
+              <a href="{{ config.repo_url }}" class="md-button smx-hero__button smx-hero__button--ghost">
+                {% include ".icons/fontawesome/brands/github.svg" %} GitHub
+              </a>
+            {% endif %}
+          </div>
+          <ul class="smx-hero__facts">
+            <li><strong>6 + 1</strong><span>stepper axes + gripper</span></li>
+            <li><strong>Protocol 2.0</strong><span>DYNAMIXEL compatible</span></li>
+            <li><strong>ROS 2 Jazzy</strong><span>Robot PC in Docker</span></li>
+            <li><strong>Zephyr</strong><span>SmartFusion2 M2S010</span></li>
+          </ul>
+        </div>
+        <figure class="smx-hero__figure">
+          <img src="{{ 'images/system-overview.svg' | url }}" alt="SmartManipulator-X system overview">
+        </figure>
+      </div>
+    </section>
+
+    <section class="smx-cards md-grid" aria-label="Documentation sections">
+      {% for item in nav if item.children %}
+        {% set meta = sections.get(item.title, ("material/book-open-page-variant", "")) %}
+        <div class="smx-card">
+          <div class="smx-card__head">
+            <span class="smx-card__icon">{% include ".icons/" ~ meta[0] ~ ".svg" %}</span>
+            <h2 class="smx-card__title">{{ item.title }}</h2>
+          </div>
+          {% if meta[1] %}<p class="smx-card__text">{{ meta[1] }}</p>{% endif %}
+          <ul class="smx-card__links">
+            {% for child in item.children if child.url %}
+              <li><a href="{{ child.url | url }}">{{ child.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </section>
+  {% endif %}
+{% endblock %}

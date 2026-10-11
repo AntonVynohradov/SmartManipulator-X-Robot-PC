@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="1200" height="640" font-family="Segoe UI, DejaVu Sans, Arial, sans-serif" font-size="14">
+<title>Host link: PC, MCP2221A, PIC32 and SmartFusion2 with their bit rates, and the connection sequence</title>
+<style>
+  .bg { fill: #ffffff; }
+  .h1 { font-size: 20px; font-weight: 700; fill: #202124; }
+  .h2 { font-size: 16px; font-weight: 700; fill: #202124; }
+  .b  { font-size: 15px; font-weight: 700; fill: #202124; }
+  .t  { fill: #3c4043; }
+  .s  { font-size: 12px; fill: #5f6368; }
+  .rate { font-size: 15px; font-weight: 700; }
+  .host { fill: #e8f0fe; stroke: #1a73e8; stroke-width: 2; }
+  .chip { fill: #f1f3f4; stroke: #5f6368; stroke-width: 2; }
+  .pic  { fill: #fef7e0; stroke: #e37400; stroke-width: 2; }
+  .fw   { fill: #e6f4ea; stroke: #1e8e3e; stroke-width: 2; }
+  .kit  { fill: none; stroke: #9aa0a6; stroke-width: 1.5; stroke-dasharray: 6 5; }
+  .wire { stroke: #3c4043; stroke-width: 2.5; fill: none; }
+  .fast { fill: #1a73e8; }
+  .slow { fill: #1e8e3e; }
+  .step { fill: #ffffff; stroke: #dadce0; stroke-width: 1.5; }
+  .num  { fill: #e37400; }
+  .numt { font-size: 15px; font-weight: 700; fill: #ffffff; }
+  .mono { font-family: Consolas, "DejaVu Sans Mono", monospace; font-size: 13px; fill: #202124; }
+  .note { fill: #f8f9fa; stroke: #dadce0; stroke-width: 1; }
+</style>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#3c4043"/>
+  </marker>
+</defs>
+<rect class="bg" x="0" y="0" width="1200" height="640"/>
+
+<text x="30" y="38" class="h1">Host link: PC → Hello FPGA Kit → firmware</text>
+<text x="30" y="60" class="s">DYNAMIXEL Protocol 2.0 frames pass through unchanged; the PIC32 converts the bit rate between its two UARTs.</text>
+
+<!-- Hello FPGA Kit boundary -->
+<rect class="kit" x="312" y="78" width="868" height="200" rx="10"/>
+<text x="326" y="98" class="s">Hello FPGA Kit</text>
+
+<!-- PC -->
+<rect class="host" x="30" y="118" width="210" height="130" rx="8"/>
+<text x="135" y="146" class="b" text-anchor="middle">Robot PC / Operator PC</text>
+<text x="135" y="170" class="t" text-anchor="middle">dxl_gui.py, firmware_check.py,</text>
+<text x="135" y="188" class="t" text-anchor="middle">ROS 2 (ros2_control)</text>
+<text x="135" y="214" class="s" text-anchor="middle">COMx / /dev/ttyACM0</text>
+<text x="135" y="232" class="s" text-anchor="middle">opened at 460800 bps</text>
+
+<!-- MCP2221A -->
+<rect class="chip" x="330" y="118" width="170" height="130" rx="8"/>
+<text x="415" y="150" class="b" text-anchor="middle">MCP2221A</text>
+<text x="415" y="174" class="t" text-anchor="middle">USB ↔ UART</text>
+<text x="415" y="192" class="t" text-anchor="middle">bridge</text>
+
+<!-- PIC32 -->
+<rect class="pic" x="590" y="118" width="250" height="130" rx="8"/>
+<text x="715" y="146" class="b" text-anchor="middle">PIC32</text>
+<text x="715" y="170" class="t" text-anchor="middle">UART2 (host side)</text>
+<text x="715" y="188" class="t" text-anchor="middle">→ UART4 (SmartFusion2 side)</text>
+<text x="715" y="214" class="s" text-anchor="middle">forwards data only after</text>
+<text x="715" y="232" class="s" text-anchor="middle">it has received "&amp;"</text>
+
+<!-- SmartFusion2 -->
+<rect class="fw" x="930" y="118" width="230" height="130" rx="8"/>
+<text x="1045" y="146" class="b" text-anchor="middle">SmartFusion2 M2S010</text>
+<text x="1045" y="170" class="t" text-anchor="middle">MMUART_0 = uart0</text>
+<text x="1045" y="188" class="t" text-anchor="middle">(balls H12 / H13)</text>
+<text x="1045" y="214" class="s" text-anchor="middle">Zephyr firmware,</text>
+<text x="1045" y="232" class="s" text-anchor="middle">virtual XW430 IDs 1–6, 200</text>
+
+<!-- links -->
+<line class="wire" x1="240" y1="183" x2="328" y2="183" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="284" y="172" class="s" text-anchor="middle">USB</text>
+<text x="284" y="202" class="s" text-anchor="middle">Mini-B</text>
+
+<line class="wire" x1="500" y1="183" x2="588" y2="183" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="544" y="172" class="s" text-anchor="middle">UART</text>
+
+<line class="wire" x1="840" y1="183" x2="928" y2="183" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="884" y="172" class="s" text-anchor="middle">UART</text>
+
+<!-- rate bands -->
+<rect class="fast" x="30" y="292" width="810" height="6" rx="3"/>
+<text x="435" y="324" class="rate" text-anchor="middle" fill="#1a73e8">460800 bps</text>
+<text x="435" y="344" class="s" text-anchor="middle">set on the PC port (GUI default, Baud box / --baud)</text>
+
+<rect class="slow" x="846" y="292" width="324" height="6" rx="3"/>
+<text x="1008" y="324" class="rate" text-anchor="middle" fill="#1e8e3e">230400 bps</text>
+<text x="1008" y="344" class="s" text-anchor="middle">fixed in the firmware overlay:</text>
+<text x="1008" y="362" class="mono" text-anchor="middle">current-speed = &lt;230400&gt;</text>
+
+<!-- connection sequence -->
+<text x="30" y="404" class="h2">Connection sequence (done by the GUI and firmware_check.py)</text>
+
+<rect class="step" x="30" y="420" width="268" height="112" rx="8"/>
+<circle class="num" cx="56" cy="446" r="14"/><text x="56" y="451" class="numt" text-anchor="middle">1</text>
+<text x="80" y="451" class="b">Open the port</text>
+<text x="46" y="480" class="t">COM port at 460800 bps,</text>
+<text x="46" y="500" class="t">8N1, no flow control</text>
+
+<rect class="step" x="318" y="420" width="268" height="112" rx="8"/>
+<circle class="num" cx="344" cy="446" r="14"/><text x="344" y="451" class="numt" text-anchor="middle">2</text>
+<text x="368" y="451" class="b">Send "&amp;" (0x26)</text>
+<text x="334" y="480" class="t">The PIC32 switches to UART</text>
+<text x="334" y="500" class="t">pass-through to the SmartFusion2</text>
+
+<rect class="step" x="606" y="420" width="268" height="112" rx="8"/>
+<circle class="num" cx="632" cy="446" r="14"/><text x="632" y="451" class="numt" text-anchor="middle">3</text>
+<text x="656" y="451" class="b">Wait 100 ms, flush</text>
+<text x="622" y="480" class="t">Discard whatever the PIC32</text>
+<text x="622" y="500" class="t">answered</text>
+
+<rect class="step" x="894" y="420" width="276" height="112" rx="8"/>
+<circle class="num" cx="920" cy="446" r="14"/><text x="920" y="451" class="numt" text-anchor="middle">4</text>
+<text x="944" y="451" class="b">DYNAMIXEL frames</text>
+<text x="910" y="480" class="mono">FF FF FD 00 ID LEN …</text>
+<text x="910" y="500" class="t">both directions, e.g. PING</text>
+<text x="910" y="518" class="t">to IDs 1–6 and 200</text>
+
+<line class="wire" x1="298" y1="476" x2="316" y2="476" marker-end="url(#arr)"/>
+<line class="wire" x1="586" y1="476" x2="604" y2="476" marker-end="url(#arr)"/>
+<line class="wire" x1="874" y1="476" x2="892" y2="476" marker-end="url(#arr)"/>
+
+<rect class="note" x="30" y="552" width="1140" height="70" rx="8"/>
+<text x="46" y="578" class="t">"&amp;" is sent again after every rate change and reconnect. That is harmless: the firmware's parser drops any byte until it sees FF FF FD.</text>
+<text x="46" y="602" class="t">Without the PIC32 (native_sim pseudo-terminal, or a USB-UART cable straight to the firmware UART): untick "PIC32 bridge (&amp;)" (--no-pic32-bridge), 230400 bps.</text>
+</svg>

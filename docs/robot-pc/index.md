@@ -17,18 +17,18 @@ The stock ROBOTIS hardware interface is the preferred starting point, but it mus
 
 ## Host and container
 
-The target Robot PC host is Ubuntu 24.04 with Docker Engine and Docker Compose. The current `docker/` profile is based on `ros:jazzy-ros-base`. It imports the DYNAMIXEL SDK/interface dependencies through `ros2_robot.repos`, builds the project-owned packages, and maps `/dev/ttyACM0` into the container with the `dialout` group.
+The target Robot PC host is Ubuntu 24.04 with Docker Engine and Docker Compose. The paths below (`docker/`, `ros2_ws/`, `ros2_robot.repos`) are in the **Robot PC repository**, not in this firmware repository. Its current `docker/` profile is based on `ros:jazzy-ros-base`. It imports the DYNAMIXEL SDK/interface dependencies through `ros2_robot.repos`, builds the project-owned packages, and maps `/dev/ttyACM0` into the container with the `dialout` group.
 
 MoveIt 2, RViz2, Gazebo, and the Operator PC application are intentionally excluded from this image. The Operator PC owns those dependencies and connects over ROS 2 DDS.
 
-Build and start the Robot PC container from the repository root:
+Build and start the Robot PC container from the Robot PC repository root:
 
 ```bash
 docker compose -f docker/docker-compose.yml build
 docker compose -f docker/docker-compose.yml run --rm smartmanipulator_x
 ```
 
-Before starting, connect the board and confirm the device path on the Linux host:
+Before starting, connect the board and confirm the device path on the Linux host. The kit appears through its MCP2221A USB-UART; the host must open it at 460800 bps and send `&` once before the first DYNAMIXEL packet (see [Host link](../hardware/wiring.md#host-link-usb-pic32-smartfusion2)):
 
 ```bash
 lsusb

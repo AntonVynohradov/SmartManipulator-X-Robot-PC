@@ -12,9 +12,9 @@ The SmartFusion2 is intended to act as a virtual DYNAMIXEL device over USB CDC, 
 - `ros2_ws/src/robotis/`: checkout target for upstream repositories selected by `ros2_robot.repos` in the Robot PC image; `ros2.repos` remains the broader workspace manifest.
 - SmartFusion2 firmware is maintained in a separate repository and is not included in this repository.
 - `tools/`: diagnostics and USB utilities.
-- `docs/`: the MkDocs site covering architecture, Moveo mechanics, Robot PC, Operator PC, SmartFusion2, DYNAMIXEL compatibility, and development. See [`docs/index.md`](docs/index.md).
+- `docs/`: the MkDocs site covering architecture, Moveo mechanics, Robot PC, Operator PC, SmartFusion2 firmware and hardware, DYNAMIXEL compatibility, and development. See [`docs/index.md`](docs/index.md).
 
-Use the repository-local `.venv` for MkDocs. Follow the platform-specific setup and Docker development workflow in the [development guide](docs/development/index.md); the [documentation home](docs/index.md) provides the site overview.
+Use the repository-local `.venv` for MkDocs (`requirements-docs.txt`). The VS Code task **Docs: Build PDF** (default build task) creates the `.venv` if needed and writes the PDF manual to `site/SmartManipulator-X.pdf`; by hand, run `python tools/docs/build_pdf.py`. **Docs: Live preview** runs `mkdocs serve`. The GitHub Pages deployment publishes the same PDF next to the site. Follow the platform-specific setup and Docker development workflow in the [development guide](docs/development/index.md); the [documentation home](docs/index.md) provides the site overview.
 
 ## Prerequisites
 
