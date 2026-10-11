@@ -1,0 +1,2203 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="OpenMANIPULATOR-X software concepts on BCN3D Moveo mechanics: ROS 2 Robot PC, SmartFusion2 controller firmware exposing the stepper axes as virtual DYNAMIXEL devices, hardware and wiring.">
+      
+      
+        <meta name="author" content="Anton Vynohradov">
+      
+      
+        <link rel="canonical" href="https://antonvynohradov.github.io/SmartManipulator-X-Robot-PC/hardware/wiring/">
+      
+      
+        <link rel="prev" href="../../gui/">
+      
+      
+        <link rel="next" href="../tmc5160/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hello FPGA Kit wiring - SmartManipulator-X</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/print.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hello-fpga-kit-wiring" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SmartManipulator-X" class="md-header__button md-logo" aria-label="SmartManipulator-X" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SmartManipulator-X
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hello FPGA Kit wiring
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <a href="../../SmartManipulator-X.pdf" class="md-header__button smx-pdf-button" title="Download the documentation as PDF" download>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5zm5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5zm4-3H17v1h1.5V13H17v2h-1.5V9h3zm-6.5 0h1v3h-1zm-5 0h1v1H7z"/></svg>
+        <span>PDF</span>
+      </a>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/AntonVynohradov/SmartManipulator-X-Robot-PC" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/" class="md-tabs__link">
+          
+  
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../firmware/" class="md-tabs__link">
+          
+  
+  
+  Firmware
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  Hardware
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../architecture/" class="md-tabs__link">
+          
+  
+  
+  System context
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+  
+
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SmartManipulator-X" class="md-nav__button md-logo" aria-label="SmartManipulator-X" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    SmartManipulator-X
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/AntonVynohradov/SmartManipulator-X-Robot-PC" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firmware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Firmware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firmware architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Motor tester GUI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hello FPGA Kit wiring
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hello FPGA Kit wiring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-link-usb-pic32-smartfusion2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host link (USB → PIC32 → SmartFusion2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wiring-list-logic-dupont-mf-30-cm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring list (logic, Dupont m/f, ≤ 30 cm)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axes-and-motors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Axes and motors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Axes and motors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#motor-connection-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motor connection order
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-wiring-on-each-tmc5160-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed wiring on each TMC5160 module
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-and-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power and servo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kit-header-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kit header reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safety rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implications-for-the-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implications for the firmware
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tmc5160/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TMC5160 driver modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../servo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gripper servo (MG996R)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System context
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System context
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dynamixel/compatibility-spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DYNAMIXEL compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-pc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Robot PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator-pc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operator PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mechanical/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BCN3D Moveo mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-link-usb-pic32-smartfusion2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host link (USB → PIC32 → SmartFusion2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wiring-list-logic-dupont-mf-30-cm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring list (logic, Dupont m/f, ≤ 30 cm)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axes-and-motors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Axes and motors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Axes and motors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#motor-connection-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motor connection order
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-wiring-on-each-tmc5160-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed wiring on each TMC5160 module
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-and-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power and servo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kit-header-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kit header reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safety rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implications-for-the-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implications for the firmware
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Overview
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Hardware
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hello-fpga-kit-wiring">Hello FPGA Kit wiring<a class="headerlink" href="#hello-fpga-kit-wiring" title="Permanent link">&para;</a></h1>
+<p>This page covers stage 1: SPI-only direct wiring of the M2S Hello FPGA Kit
+(SmartFusion2 M2S010-VF256) to six TMC5160 modules, the gripper servo, and the
+power supply.</p>
+<blockquote>
+<p><strong>Source and status:</strong> <em>Robot Arm Demonstrator: Direct Wiring Hello FPGA Kit →
+6× TMC5160 (Stage 1, SPI only)</em>, draft Rev. D, 2026-10-07, bavariamatic. It
+is <strong>for review and not released</strong>, and it supersedes Rev. C (which had home
+switches). The original is in
+<a href="../Wiring_RevD_DirectWiring_EN.pdf"><code>Wiring_RevD_DirectWiring_EN.pdf</code></a>. Pin
+source: Hello FPGA schematics Rev. 1, p. 11. If this page and the PDF
+disagree, the PDF is authoritative; update this page to match it.</p>
+<p><strong>Manufacturer documents</strong> (in <a href="../tmc5160/#reference-documents"><code>datasheets/</code></a>):
+<a href="../datasheets/TMC5160A_datasheet_rev1.18.pdf">TMC5160A datasheet Rev. 1.18</a>,
+<a href="../datasheets/Hello_FPGA_Kit_schematics_rev1.pdf">Hello FPGA Kit schematics Rev. 1</a>,
+<a href="https://global.bttwiki.com/TMC5160T%20Pro%20V1.0.html">BTT TMC5160T Pro pinout</a>
+(module in use), and the reference module
+<a href="../datasheets/BIGTREETECH_TMC5160-V1.0_schematic.pdf">BTT TMC5160 V1.0 schematic</a>
+and <a href="../datasheets/BIGTREETECH_TMC5160-V1.0_manual.pdf">manual</a>.</p>
+<p><strong>Verified on hardware (2026-10-10/11):</strong> host link (PIC32 ↔ SmartFusion2 at
+230400 bps, see <a href="#host-link-usb-pic32-smartfusion2">Host link</a>); SCK, MOSI,
+MISO, CS0, 3V3 and GND to one TMC5160T Pro (axis A0 detected, registers and
+ramp generator work); the servo signal on J8-4 (the servo follows Goal
+Position). The A0 shaft does not turn yet because the module runs in
+STEP/DIR mode (finding 10 in <a href="../tmc5160/#findings">TMC5160 driver modules</a>).
+CS1–CS5 and the other motors are not tested yet.</p>
+<p><strong>Gripper servo:</strong> connection, supply, signal level and bring-up are on
+<a href="../servo/">Gripper servo (MG996R)</a>.</p>
+</blockquote>
+<figure class="smx-figure">
+<p><img alt="Hello FPGA Kit to 6× TMC5160 wiring diagram" src="../images/hello-fpga-kit-wiring.svg" /></p>
+<figcaption>Hello FPGA Kit to 6× TMC5160 wiring diagram</figcaption>
+</figure>
+<figure class="smx-figure">
+<p><img alt="Complete stage-1 wiring: Hello FPGA Kit, six TMC5160 modules, stepper motors, servo, and power" src="../images/system-wiring.png" /></p>
+<figcaption>Complete stage-1 wiring: Hello FPGA Kit, six TMC5160 modules, stepper motors, servo, and power</figcaption>
+</figure>
+<p>The module pinout, the motor connection, the check against the manufacturer
+documents, and the firmware review are on <a href="../tmc5160/">TMC5160 driver modules</a>.</p>
+<h2 id="concept">Concept<a class="headerlink" href="#concept" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Each TMC5160 runs in <strong>motion-controller mode</strong> (<code>SD_MODE=0</code>, <code>SPI_MODE=1</code>).
+  The ramps run inside the driver. The BTT TMC5160T Pro on A0 currently reads
+  <code>SD_MODE=1</code> and must be switched (finding 10 in
+  <a href="../tmc5160/#findings">TMC5160 driver modules</a>). The kit drives only <strong>SPI plus six chip
+  selects</strong>; it provides no STEP/DIR, EN, or DIAG signals.</li>
+<li><strong>No limit switches</strong> in stage 1, because the mechanics have none. As on the
+  original Moveo, positioning is open-loop:</li>
+<li>With the power off, move the arm by hand to the defined start pose.</li>
+<li>At power-up, every TMC5160 starts with <code>XACTUAL = 0</code> (reset value), so
+     the start pose is position 0. The firmware does not home.</li>
+<li>The joint ranges are enforced as software limits (firmware or
+     <code>ros2_control</code>).</li>
+<li><strong>Host link:</strong> USB Mini-B → MCP2221A → PIC32 → SmartFusion2 MMUART_0. The
+  link carries DYNAMIXEL Protocol 2.0 and appears on the Robot PC as
+  <code>/dev/ttyACM0</code>. PC side 460800 bps, firmware side 230400 bps; the PIC32
+  passes data only after the host has sent <code>&amp;</code>. See
+  <a href="#host-link-usb-pic32-smartfusion2">Host link</a>.</li>
+</ul>
+<h2 id="host-link-usb-pic32-smartfusion2">Host link (USB → PIC32 → SmartFusion2)<a class="headerlink" href="#host-link-usb-pic32-smartfusion2" title="Permanent link">&para;</a></h2>
+<p>The PC does not talk to the SmartFusion2 directly. The kit's USB Mini-B port
+leads to an MCP2221A USB-UART bridge, then to a PIC32, and only the PIC32 is
+wired to MMUART_0 of the SmartFusion2. The two UART segments run at
+<strong>different bit rates</strong>; the PIC32 converts between them.</p>
+<figure class="smx-figure">
+<p><img alt="Host link of the Hello FPGA Kit: bit rates of the two UART segments and the connection sequence" src="../images/host-link.svg" /></p>
+<figcaption>Host link of the Hello FPGA Kit: bit rates of the two UART segments and the connection sequence</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Bit rate</th>
+<th>Where it is set</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PC ↔ MCP2221A ↔ PIC32 (UART2)</td>
+<td><strong>460800 bps</strong></td>
+<td>Serial port on the PC: GUI <em>Baud</em> box (default 460800), <code>--baud</code> of <code>dxl_gui.py</code> and <code>firmware_check.py</code></td>
+</tr>
+<tr>
+<td>PIC32 (UART4) ↔ SmartFusion2 MMUART_0</td>
+<td><strong>230400 bps</strong></td>
+<td>Firmware: <code>current-speed</code> of <code>uart0</code> in both board overlays; the PIC32 firmware uses the same rate on its side</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The PIC32 forwards nothing until it has received the character <code>&amp;</code>
+(0x26).</strong> After opening the port, the host therefore:</p>
+<ol>
+<li>opens the port at 460800 bps (8N1, no flow control),</li>
+<li>sends <code>&amp;</code>, which switches the PIC32 to UART pass-through,</li>
+<li>waits about 100 ms and discards any bytes received so far,</li>
+<li>sends DYNAMIXEL Protocol 2.0 frames (<code>FF FF FD 00 …</code>) in both directions.</li>
+</ol>
+<p>The GUI and <code>firmware_check.py</code> do this automatically (checkbox
+<strong>PIC32 bridge (&amp;)</strong>, on by default; <code>--no-pic32-bridge</code> turns it off). They
+send <code>&amp;</code> again after every rate change and reconnect. That is harmless: the
+firmware's parser drops any byte until it sees the <code>FF FF FD</code> header. A ROS 2
+driver or any other host program on the Robot PC must send <code>&amp;</code> once after
+opening the port in the same way.</p>
+<p><strong>The PIC32 holds back a <code>%</code> (0x25) that ends a packet</strong> until the next byte
+arrives (measured on the kit, 2026-10-11: only this value, only towards the
+SmartFusion2, <code>%</code> inside a packet passes normally). A request whose CRC ends
+with 0x25 (for example READ 120/4, Realtime Tick + Moving, which the GUI polls)
+reached the firmware only together with the next request, so every reply
+arrived one transaction late. The host therefore sends one <code>0x00</code> byte after
+any packet that ends with 0x25; the firmware's parser drops it. <code>DxlBus</code> in
+<code>tools/dxl_test_gui/dxl/bus.py</code> does this, and also ignores a status packet
+whose data length does not match the request (a late reply). Any other host
+program must do the same.</p>
+<p>Consequences:</p>
+<ul>
+<li>The Baud Rate register (address 8) of the virtual servos reports code 23 =
+  230400 bps, the firmware side. It does not show the 460800 of the PC port.</li>
+<li>Changing the PC rate does not change the firmware rate, and the reverse.
+  <code>current-speed</code> in the overlays must stay at the rate the PIC32 uses towards
+  the SmartFusion2 (230400).</li>
+<li>Without the PIC32 (firmware running as <code>native_sim</code>, or a USB-UART cable
+  straight to the firmware UART), untick <strong>PIC32 bridge (&amp;)</strong>. On a cable, use
+  230400 bps; on the <code>native_sim</code> pseudo-terminal the rate does not matter.</li>
+</ul>
+<h2 id="wiring-list-logic-dupont-mf-30-cm">Wiring list (logic, Dupont m/f, ≤ 30 cm)<a class="headerlink" href="#wiring-list-logic-dupont-mf-30-cm" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Kit pin</th>
+<th>Arduino</th>
+<th>Ball</th>
+<th>Signal</th>
+<th>Destination</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>J7-6</td>
+<td>IO13</td>
+<td>R13</td>
+<td>SPI SCK</td>
+<td>→ SCK of all 6 modules</td>
+</tr>
+<tr>
+<td>J7-4</td>
+<td>IO11</td>
+<td>R11</td>
+<td>SPI MOSI</td>
+<td>→ SDI of all 6 modules</td>
+</tr>
+<tr>
+<td>J7-5</td>
+<td>IO12</td>
+<td>T11</td>
+<td>SPI MISO</td>
+<td>← SDO of all 6 modules</td>
+</tr>
+<tr>
+<td>J7-3</td>
+<td>IO10</td>
+<td>M10</td>
+<td>CS0</td>
+<td>→ CSN A0 (J1 base)</td>
+</tr>
+<tr>
+<td>J7-1</td>
+<td>IO8</td>
+<td>R10</td>
+<td>CS1</td>
+<td>→ CSN A1a (J2 shoulder a)</td>
+</tr>
+<tr>
+<td>J8-8</td>
+<td>IO7</td>
+<td>T7</td>
+<td>CS2</td>
+<td>→ CSN A1b (J2 shoulder b)</td>
+</tr>
+<tr>
+<td>J8-7</td>
+<td>IO6</td>
+<td>T8</td>
+<td>CS3</td>
+<td>→ CSN A2 (J3 elbow)</td>
+</tr>
+<tr>
+<td>J8-6</td>
+<td>IO5</td>
+<td>P10</td>
+<td>CS4</td>
+<td>→ CSN A3 (J4 forearm roll)</td>
+</tr>
+<tr>
+<td>J8-5</td>
+<td>IO4</td>
+<td>R9</td>
+<td>CS5</td>
+<td>→ CSN A4 (J5 wrist)</td>
+</tr>
+<tr>
+<td>J8-4</td>
+<td>IO3</td>
+<td>N7</td>
+<td>SERVO-PWM</td>
+<td>→ servo signal (orange), see <a href="../servo/">Gripper servo</a></td>
+</tr>
+<tr>
+<td>J8-1</td>
+<td>IO0</td>
+<td>F3</td>
+<td>UART RX</td>
+<td>← TXD of the USB-UART (spare)</td>
+</tr>
+<tr>
+<td>J8-2</td>
+<td>IO1</td>
+<td>G3</td>
+<td>UART TX</td>
+<td>→ RXD of the USB-UART (spare)</td>
+</tr>
+<tr>
+<td>J9-4</td>
+<td>3V3</td>
+<td>–</td>
+<td>VIO</td>
+<td>→ VIO (J2-7) of all 6 modules</td>
+</tr>
+<tr>
+<td>J9-6/7, J7-7</td>
+<td>GND</td>
+<td>–</td>
+<td>GND</td>
+<td>→ GND of the modules, servo, UART, and PSU minus</td>
+</tr>
+</tbody>
+</table>
+<p>Use a Dupont splitter or a breadboard for the SPI bus to the six modules.
+<strong>Logic signals only</strong> go over the breadboard.</p>
+<h2 id="axes-and-motors">Axes and motors<a class="headerlink" href="#axes-and-motors" title="Permanent link">&para;</a></h2>
+<h3 id="motor-connection-order">Motor connection order<a class="headerlink" href="#motor-connection-order" title="Permanent link">&para;</a></h3>
+<p>Connect the motors in this order. Each motor goes to its own TMC5160 module,
+and each module's CSN goes to the chip select in the same row. Swapping two
+motors gives them the wrong current and ramp, and swapping two CS lines moves
+the motor to another DYNAMIXEL ID.</p>
+<table>
+<thead>
+<tr>
+<th>No.</th>
+<th>Module</th>
+<th>CS (kit pin)</th>
+<th>Joint</th>
+<th>Motor</th>
+<th>Rated current</th>
+<th>DYNAMIXEL ID → firmware axis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>A0</td>
+<td>CS0 (J7-3)</td>
+<td>J1 base</td>
+<td>NEMA17 17HS19-2504S</td>
+<td>2.5 A</td>
+<td>ID 1 → axis 0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>A1a</td>
+<td>CS1 (J7-1)</td>
+<td>J2 shoulder (a)</td>
+<td>NEMA23 23HS2430</td>
+<td>3.0 A</td>
+<td>ID 2 → axis 1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>A1b</td>
+<td>CS2 (J8-8)</td>
+<td>J2 shoulder (b)</td>
+<td>NEMA23 23HS2430</td>
+<td>3.0 A, <code>shaft=1</code></td>
+<td>ID 3 → axis 2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>A2</td>
+<td>CS3 (J8-7)</td>
+<td>J3 elbow</td>
+<td>NEMA17 17HS19-1684S-PG5 (gearbox 5.18:1)</td>
+<td>1.68 A</td>
+<td>ID 4 → axis 3</td>
+</tr>
+<tr>
+<td>5</td>
+<td>A3</td>
+<td>CS4 (J8-6)</td>
+<td>J4 forearm roll</td>
+<td>NEMA17 17HS13-0404S1</td>
+<td>0.4 A</td>
+<td>ID 5 → axis 4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>A4</td>
+<td>CS5 (J8-5)</td>
+<td>J5 wrist</td>
+<td>NEMA14 14HS20-1504S</td>
+<td>1.5 A</td>
+<td>ID 6 → axis 5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Both shoulder motors (rows 2 and 3) are the same type and drive the same
+  joint. A1b faces A1a, so it runs mirrored: set <code>SMX_AXIS2_INVERT</code> to 1 once
+  the mechanics confirm it (see <a href="#implications-for-the-firmware">Implications for the firmware</a>).</li>
+<li>The J3 elbow motor has a built-in planetary gearbox (5.18:1, at most 2 N·m
+  at the output). <code>motor_axes.h</code> sets the gear ratio 57/11 on axis 3, so the position of ID 4 refers to the gearbox
+  output shaft, not the motor shaft.</li>
+<li>The 17HS13-0404S1 (J4) is a 0.4 A motor. Never connect it to a module that
+  runs a profile for a larger motor: it would get several times its rated
+  current and overheat.</li>
+<li>Coil wiring: one coil to A1/A2, the other to B1/B2. The wire colours differ
+  between the motor types (the 23HS2430 has red A+ and <strong>yellow B+</strong>), see
+  <a href="../tmc5160/#wire-colours-of-the-other-motors">Wire colours of the other motors</a>.
+  Never plug or unplug a motor while VM is on.</li>
+</ul>
+<p>The ID → axis → CS mapping comes from <code>main.c</code> (IDs 1-6) and the overlay
+(<code>reg = &lt;0&gt;</code>…<code>&lt;5&gt;</code>). Which motor sits on which axis is set in
+<code>apps/SmartManipulator_Controller/include/motor/motor_axes.h</code>; the motor data
+(current, ramp) is in <code>motor_profiles.h</code> next to it. See
+<a href="../tmc5160/#motor-profiles-and-axis-assignment">Motor profiles and axis assignment</a>.
+The table shows the current assignment. The earlier planned motors
+(SM57HT112-3004A, SM42HT47-1684, SM42HT33-1334, SM35HT36-1004A) remain in
+<code>motor_profiles.h</code> as alternatives; they are not assigned to any axis.</p>
+<h2 id="fixed-wiring-on-each-tmc5160-module">Fixed wiring on each TMC5160 module<a class="headerlink" href="#fixed-wiring-on-each-tmc5160-module" title="Permanent link">&para;</a></h2>
+<p>The modules are <strong>BIGTREETECH TMC5160T Pro</strong> (R<sub>SENSE</sub> 0.075 Ω,
+VM 8–56 V, SPI mode by default). Rev. D used Watterott SilentStepStick pin
+names; the BTT names and header pins are below. Full pinout and the
+differences to the BTT TMC5160 V1.0: <a href="../tmc5160/">TMC5160 driver modules</a>.</p>
+<figure class="smx-figure">
+<p><img alt="One TMC5160T Pro axis wired to the Hello FPGA Kit" src="../images/tmc5160-axis-wiring.png" /></p>
+<figcaption>One TMC5160T Pro axis wired to the Hello FPGA Kit</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th>Module pin</th>
+<th>Connection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>J1-4 CSN (CFG3)</td>
+<td>its own CS line (table above)</td>
+</tr>
+<tr>
+<td>J1-3 SCK (CFG2), J1-2 SDI (CFG1), J1-5 SDO (CFG0)</td>
+<td>shared SPI bus</td>
+</tr>
+<tr>
+<td>J2-7 VIO</td>
+<td>3V3 (J9-4)</td>
+</tr>
+<tr>
+<td>J2-8 GND</td>
+<td>common GND</td>
+</tr>
+<tr>
+<td>J1-1 EN</td>
+<td>→ GND (must not float). The power stage stays off after reset (<code>CHOPCONF.TOFF=0</code>) until the firmware enables it over SPI.</td>
+</tr>
+<tr>
+<td>J1-6 CLK</td>
+<td>→ GND, short wire (internal 12 MHz clock). A floating CLK prevents detection.</td>
+</tr>
+<tr>
+<td>J1-7 STP, J1-8 DIR (= REFL, REFR)</td>
+<td>→ GND; <code>SW_MODE</code> stops disabled</td>
+</tr>
+<tr>
+<td>J2-1 VM, J2-2 GND (power)</td>
+<td>24 V via WAGO 221, 0.5 mm² stranded wire soldered to the module pins</td>
+</tr>
+<tr>
+<td>VM bulk capacitor</td>
+<td>electrolytic at VM/GND of every module: ≥ 330 µF / 50 V low-ESR on the 3 A axes, ≥ 220 µF / 50 V on the others</td>
+</tr>
+<tr>
+<td>J2-3/4 A2 A1, J2-5/6 <strong>B2 B1</strong></td>
+<td>motor phases: coil A on A1/A2, coil B on B1/B2. Note the order B2, B1.</td>
+</tr>
+</tbody>
+</table>
+<p>Motor wiring for the 17HS19-2504S (black A+ → A1, green A− → A2, red B+ → B1,
+blue B− → B2): <a href="../tmc5160/#motor-connection-17hs19-2504s">TMC5160 driver modules</a>.
+For a BTT TMC5160 V1.0 the headers are J3/J4, coil B is B1, B2, and the SPI
+pad must be closed and the SD pad open.</p>
+<h2 id="power-and-servo">Power and servo<a class="headerlink" href="#power-and-servo" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Motor supply</td>
+<td>24 V / ≥ 320 W, for example Mean Well LRS-350-24. The minus terminal is the GND star point; connect it to the kit GND (J9-6).</td>
+</tr>
+<tr>
+<td>Servo supply</td>
+<td>DC/DC 24 → 6 V, ≥ 5 A, for the servo only (MG996R: 4.8–7.2 V, stall current 2.5 A at 6 V). Its minus goes to the GND star point</td>
+</tr>
+<tr>
+<td>Gripper servo</td>
+<td>MG996R: signal (orange) ← SERVO-PWM (J8-4, IO3/N7, 50 Hz, 3.3 V), + (red) ← 6 V, − (brown) → DC/DC minus. Never from the kit's 5 V or 3V3. Details: <a href="../servo/">Gripper servo (MG996R)</a></td>
+</tr>
+<tr>
+<td>Spare UART</td>
+<td>3.3 V USB-UART cable (for example FTDI TTL-232R-3V3): TXD → J8-1, RXD ← J8-2, GND → J9-7. Connect it only if the host link through the PIC32 is not enough.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="kit-header-reference">Kit header reference<a class="headerlink" href="#kit-header-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>J8</th>
+<th>Arduino</th>
+<th>Ball</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>IO0 / RX</td>
+<td>F3</td>
+<td>UART RX (spare)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>IO1 / TX</td>
+<td>G3</td>
+<td>UART TX (spare)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>IO2</td>
+<td>P6</td>
+<td>–</td>
+</tr>
+<tr>
+<td>4</td>
+<td>IO3 ~</td>
+<td>N7</td>
+<td>SERVO-PWM</td>
+</tr>
+<tr>
+<td>5</td>
+<td>IO4</td>
+<td>R9</td>
+<td>CS5 → A4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>IO5 ~</td>
+<td>P10</td>
+<td>CS4 → A3</td>
+</tr>
+<tr>
+<td>7</td>
+<td>IO6 ~</td>
+<td>T8</td>
+<td>CS3 → A2</td>
+</tr>
+<tr>
+<td>8</td>
+<td>IO7</td>
+<td>T7</td>
+<td>CS2 → A1b</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>J7</th>
+<th>Arduino</th>
+<th>Ball</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>IO8</td>
+<td>R10</td>
+<td>CS1 → A1a</td>
+</tr>
+<tr>
+<td>2</td>
+<td>IO9 ~</td>
+<td>P9</td>
+<td>–</td>
+</tr>
+<tr>
+<td>3</td>
+<td>IO10 / SS</td>
+<td>M10</td>
+<td>CS0 → A0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>IO11 / MOSI</td>
+<td>R11</td>
+<td>SPI MOSI</td>
+</tr>
+<tr>
+<td>5</td>
+<td>IO12 / MISO</td>
+<td>T11</td>
+<td>SPI MISO</td>
+</tr>
+<tr>
+<td>6</td>
+<td>IO13 / SCK</td>
+<td>R13</td>
+<td>SPI SCK</td>
+</tr>
+<tr>
+<td>7</td>
+<td>GND</td>
+<td>–</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>8</td>
+<td>AREF</td>
+<td>–</td>
+<td>do not use</td>
+</tr>
+<tr>
+<td>9</td>
+<td>IO14 / SDA</td>
+<td>P8</td>
+<td>– (I²C later)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>IO15 / SCL</td>
+<td>R8</td>
+<td>– (I²C later)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>J9</th>
+<th>Pin</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>NC</td>
+<td>–</td>
+</tr>
+<tr>
+<td>2</td>
+<td>IOREF</td>
+<td>3.3 V (I/O level)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>RESET (R12)</td>
+<td>do not use</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3V3</td>
+<td>VIO of the drivers</td>
+</tr>
+<tr>
+<td>5</td>
+<td>5V</td>
+<td>do not use</td>
+</tr>
+<tr>
+<td>6, 7</td>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>8</td>
+<td>VIN</td>
+<td>NC</td>
+</tr>
+</tbody>
+</table>
+<p>The Arduino headers are female sockets, so use m/f Dupont jumpers. The I/O
+level is 3.3 V (IOREF = 3P3V). Arduino A0–A5 are connected to the PIC32; <strong>do
+not use them</strong>.</p>
+<h2 id="safety-rules">Safety rules<a class="headerlink" href="#safety-rules" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Send only 3.3 V signals to the kit. Leave J9-5 (5 V) and J9-3 (RESET)
+   unconnected. Do not power the servo from the kit, and do not pull the servo
+   signal up to its supply.</li>
+<li>Never route VM or motor phases over a breadboard or Dupont wires. Never plug
+   or unplug a motor while the power is on.</li>
+<li>SPI runs in mode 3 at no more than 2 MHz (Dupont wires). SDO is high-Z while
+   CSN is high, so the six modules can share MISO.</li>
+<li>Configure the shoulder modules A1a and A1b identically, and write their
+   target positions back-to-back.</li>
+<li>Do not enable the TMC5160 power stages until the firmware parameters are
+   verified (next section).</li>
+<li>Switch on the 24 V motor supply <strong>before</strong> the kit. The TMC5160 logic runs
+   from VM; if VM comes later or drops, the chips lose their configuration. The
+   firmware detects this (GSTAT.reset) before the next command, writes the
+   configuration again and switches torque off; the position restarts at 0.
+   Place the arm in the start pose again before you switch torque on.</li>
+</ol>
+<h2 id="implications-for-the-firmware">Implications for the firmware<a class="headerlink" href="#implications-for-the-firmware" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Wiring fact</th>
+<th>Firmware or Libero impact</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CS0–CS5 on IO10, IO8, IO7, IO6, IO5, IO4</td>
+<td>Overlay <code>reg = &lt;0&gt;</code>…<code>&lt;5&gt;</code> = SPI_0 SS0–SS5. This matches the Libero contract (<code>docs/firmware_interface.md</code> in the Libero repo).</td>
+<td>Consistent</td>
+</tr>
+<tr>
+<td>SPI mode 3, ≤ 2 MHz</td>
+<td>Mode 3 is correct. The MSS SPI driver cannot divide below PCLK/30 = 1.67 MHz: the old 1 MHz setting fell back to <strong>25 MHz</strong> SCK.</td>
+<td>Fixed: <code>SMX_TMC5160_SPI_HZ</code> = 2 MHz (1.79 MHz); verified on hardware</td>
+</tr>
+<tr>
+<td>CLK → GND (internal oscillator, 12 MHz)</td>
+<td><code>clock-frequency</code> was 16 MHz</td>
+<td>Fixed: <code>SMX_TMC5160_CLOCK_HZ</code> = 12 MHz</td>
+</tr>
+<tr>
+<td>No StallGuard2 tuning</td>
+<td>The pinned driver always sets <code>SW_MODE.sg_stop</code>; above TCOOLTHRS an untuned StallGuard2 can stop an axis</td>
+<td>Fixed: <code>SMX_TMC5160_TCOOLTHRS</code> = 0</td>
+</tr>
+<tr>
+<td>Per-axis currents of 0.4–3.0 A</td>
+<td><code>irun</code>, <code>ihold</code> and the ramp of each axis come from the motor profile in <code>motor_profiles.h</code></td>
+<td>Fixed (table in <a href="../tmc5160/#motor-current-settings">TMC5160 driver modules</a>)</td>
+</tr>
+<tr>
+<td>A1b runs mirrored (<code>shaft=1</code>)</td>
+<td><code>SMX_AXIS2_INVERT</code> in <code>motor_axes.h</code> adds <code>shaft;</code> to <code>tmc5160_axis2</code>; it is still 0</td>
+<td><strong>Set to 1</strong> once the mechanics confirm the motors face each other</td>
+</tr>
+<tr>
+<td>TMC5160 logic powered from VM</td>
+<td>After a VM power-up or dropout the chip has reset values</td>
+<td>Fixed: <code>motor_tmc5160.c</code> reads GSTAT before every command and writes the configuration again after a reset (Torque OFF, Hardware Error bit 0, position 0). Still switch 24 V on first</td>
+</tr>
+<tr>
+<td>EN → GND, <code>TOFF=0</code> after reset</td>
+<td>The power stage starts only once the firmware enables it over SPI (Torque ON → <code>stepper_enable</code>)</td>
+<td>As designed</td>
+</tr>
+<tr>
+<td>No switches; <code>XACTUAL = 0</code> at power-up; software limits</td>
+<td>No homing. Limits must be enforced in firmware or <code>ros2_control</code>. Position scale is 1:1 to the motor shaft (200 × 16 = 3200 microsteps per revolution) until the gear ratios are entered in <code>motor_axes.h</code>. The J3 gearbox (57/11) is entered; the joint transmissions are not.</td>
+<td><strong>Open</strong> (limits, joint gear ratios)</td>
+</tr>
+<tr>
+<td>Shoulder = two motors (A1a/A1b, IDs 2 and 3)</td>
+<td>The host must command both IDs; <code>SYNC_WRITE</code> is sequential, not synchronized</td>
+<td>Open (consider pairing in firmware)</td>
+</tr>
+<tr>
+<td>MSS SPI_0 / MMUART_0 pads are hard-wired to the PIC32 (wiring note 5)</td>
+<td>In Libero, route the MSS SPI and UART through the fabric to the Arduino pins, or use CoreSPI/CoreUART. Stage 2 of the Libero design routes SPI_0 through the fabric and keeps MMUART_0 as the host link through the PIC32 (fabric-routed to H12/H13).</td>
+<td>Consistent (Libero design checked 2026-10-09; SPI_0 routing and the host link confirmed on hardware 2026-10-10)</td>
+</tr>
+<tr>
+<td>Servo on IO3 / N7, 50 Hz</td>
+<td>Libero CorePWM at <code>0x5000_0000</code> (PRESCALE 99, PERIOD 19999, 1–2 ms pulse)</td>
+<td>Firmware: <code>src/servo_corepwm.c</code>, DYNAMIXEL ID 7 (<a href="../../firmware/#gripper-servo">Gripper servo</a>); works on the kit (2026-10-11). MG996R datasheet: ~120° for 1–2 ms, the firmware default scale is 90° until calibrated (<a href="../servo/#calibration">Calibration</a>)</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../gui/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Motor tester GUI">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Motor tester GUI
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../tmc5160/" class="md-footer__link md-footer__link--next" aria-label="Next: TMC5160 driver modules">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                TMC5160 driver modules
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Anton Vynohradov &middot; Apache License 2.0
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/AntonVynohradov/SmartManipulator-X-Robot-PC" target="_blank" rel="noopener" title="Robot PC repository" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/AntonVynohradov/SmartManipulator-X-Controller" target="_blank" rel="noopener" title="Controller firmware repository" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.path", "navigation.top", "navigation.footer", "navigation.tracking", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../js/print-site.js"></script>
+      
+    
+  </body>
+</html>

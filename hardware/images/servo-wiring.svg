@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520" font-family="Segoe UI, DejaVu Sans, Arial, sans-serif" font-size="13">
+  <style>
+    .box { fill: #ffffff; stroke: #3c4043; stroke-width: 1.5; }
+    .kit { fill: #e8f0fe; stroke: #1a73e8; stroke-width: 1.5; }
+    .pwr { fill: #fef7e0; stroke: #b06000; stroke-width: 1.5; }
+    .srv { fill: #f1f3f4; stroke: #3c4043; stroke-width: 1.5; }
+    .h { font-weight: 700; font-size: 15px; fill: #202124; }
+    .t { fill: #202124; }
+    .s { fill: #5f6368; font-size: 12px; }
+    .sig { stroke: #e37400; stroke-width: 3; fill: none; }
+    .vcc { stroke: #d93025; stroke-width: 3; fill: none; }
+    .gnd { stroke: #6d4c41; stroke-width: 3; fill: none; }
+    .blk { stroke: #202124; stroke-width: 3; fill: none; }
+    .warn { fill: #c5221f; font-weight: 700; }
+  </style>
+
+  <!-- Hello FPGA Kit -->
+  <rect class="kit" x="30" y="40" width="300" height="300" rx="8"/>
+  <text class="h" x="45" y="68">M2S Hello FPGA Kit</text>
+  <text class="s" x="45" y="88">SmartFusion2 M2S010 · I/O level 3.3 V</text>
+  <rect class="box" x="45" y="105" width="270" height="60" rx="4"/>
+  <text class="t" x="58" y="128">FPGA fabric: CorePWM ch. 1</text>
+  <text class="s" x="58" y="148">0x5000_0000 · 50 Hz · 1000–2000 µs</text>
+  <rect class="box" x="180" y="190" width="135" height="44" rx="4"/>
+  <text class="t" x="190" y="210">J8-4  IO3 / D3</text>
+  <text class="s" x="190" y="227">ball N7 · SERVO-PWM</text>
+  <rect class="box" x="180" y="250" width="135" height="44" rx="4"/>
+  <text class="t" x="190" y="270">J9-6 / J9-7</text>
+  <text class="s" x="190" y="287">GND</text>
+  <text class="s" x="45" y="318">J9-5 (5 V) stays unconnected:</text>
+  <text class="s" x="45" y="334">the kit cannot supply the servo.</text>
+  <path class="blk" d="M160 165 L160 212 L180 212" stroke-dasharray="4 3"/>
+
+  <!-- Servo supply -->
+  <rect class="pwr" x="380" y="380" width="280" height="110" rx="8"/>
+  <text class="h" x="395" y="408">Servo supply</text>
+  <text class="t" x="395" y="430">DC/DC 24 V → 6 V, ≥ 5 A</text>
+  <text class="s" x="395" y="450">MG996R: 4.8–7.2 V; stall 2.5 A at 6 V</text>
+  <text class="s" x="395" y="468">bulk capacitor at the servo connector</text>
+  <text class="t" x="610" y="430">+6 V</text>
+  <text class="t" x="610" y="468">−</text>
+
+  <!-- 24 V PSU -->
+  <rect class="pwr" x="30" y="380" width="300" height="110" rx="8"/>
+  <text class="h" x="45" y="408">24 V motor PSU</text>
+  <text class="s" x="45" y="430">e.g. Mean Well LRS-350-24</text>
+  <text class="s" x="45" y="450">minus terminal = GND star point</text>
+  <path class="vcc" d="M330 425 L380 425"/>
+  <text class="t" x="270" y="430">24 V +</text>
+  <text class="t" x="270" y="470">−</text>
+  <path class="gnd" d="M330 465 L380 465"/>
+
+  <!-- Servo -->
+  <rect class="srv" x="760" y="150" width="210" height="190" rx="8"/>
+  <text class="h" x="775" y="178">MG996R servo</text>
+  <text class="s" x="775" y="198">gripper · 3-pin connector</text>
+  <rect class="box" x="775" y="215" width="180" height="32" rx="3"/>
+  <text class="t" x="785" y="236">Signal · orange</text>
+  <rect class="box" x="775" y="252" width="180" height="32" rx="3"/>
+  <text class="t" x="785" y="273">+V · red</text>
+  <rect class="box" x="775" y="289" width="180" height="32" rx="3"/>
+  <text class="t" x="785" y="310">Ground · brown</text>
+
+  <!-- signal -->
+  <path class="sig" d="M315 212 L700 212 L700 231 L775 231"/>
+  <text class="s" x="470" y="204">3.3 V PWM, 20 ms period</text>
+  <!-- +6 V -->
+  <path class="vcc" d="M660 425 L720 425 L720 268 L775 268"/>
+  <!-- servo ground -->
+  <path class="gnd" d="M660 465 L740 465 L740 305 L775 305"/>
+  <!-- logic ground: kit GND to the star point -->
+  <path class="gnd" d="M315 272 L355 272 L355 465" />
+  <circle cx="355" cy="465" r="5" fill="#6d4c41"/>
+  <text class="s" x="362" y="356">kit GND → star point</text>
+
+  <text class="warn" x="380" y="80">Common ground is required: kit GND, servo −, DC/DC −, PSU −.</text>
+  <text class="s" x="380" y="100">Without it the signal has no reference and the servo jitters or does not move.</text>
+  <text class="s" x="380" y="130">Pin order on the servo plug (datasheet): brown −, red +V, orange signal.</text>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" font-family="Segoe UI, DejaVu Sans, Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#3c4043"/>
+    </marker>
+  </defs>
+  <style>
+    .pc { fill: #f1f3f4; stroke: #5f6368; stroke-width: 1.5; }
+    .kit { fill: #e8f0fe; stroke: #1a73e8; stroke-width: 1.5; }
+    .mcu { fill: #ffffff; stroke: #1a73e8; stroke-width: 1.5; }
+    .fab { fill: #e6f4ea; stroke: #188038; stroke-width: 1.5; }
+    .drv { fill: #fef7e0; stroke: #b06000; stroke-width: 1.5; }
+    .mech { fill: #fce8e6; stroke: #c5221f; stroke-width: 1.5; }
+    .h { font-weight: 700; font-size: 15px; fill: #202124; }
+    .t { fill: #202124; }
+    .s { fill: #5f6368; font-size: 12px; }
+    .l { stroke: #3c4043; stroke-width: 2; fill: none; marker-end: url(#a); }
+    .b { stroke: #3c4043; stroke-width: 2; fill: none; marker-end: url(#a); marker-start: url(#a); }
+  </style>
+
+  <!-- PCs -->
+  <rect class="pc" x="20" y="20" width="300" height="80" rx="8"/>
+  <text class="h" x="35" y="46">Operator PC</text>
+  <text class="t" x="35" y="68">MoveIt 2 · RViz2 · Gazebo</text>
+
+  <rect class="pc" x="560" y="20" width="420" height="80" rx="8"/>
+  <text class="h" x="575" y="46">Robot PC</text>
+  <text class="t" x="575" y="68">ROS 2 Jazzy · ros2_control · DynamixelSDK</text>
+
+  <path class="b" d="M320 60 L560 60"/>
+  <text class="s" x="440" y="52" text-anchor="middle">ROS 2 DDS</text>
+
+  <!-- Kit -->
+  <rect class="kit" x="20" y="160" width="960" height="170" rx="10"/>
+  <text class="h" x="35" y="186">M2S Hello FPGA Kit · SmartFusion2 M2S010</text>
+
+  <path class="l" d="M760 100 L760 200"/>
+  <text class="s" x="750" y="124" text-anchor="end">USB · DYNAMIXEL Protocol 2.0 · 460800 bps</text>
+  <text class="s" x="750" y="141" text-anchor="end">host sends '&amp;' once after opening the port</text>
+
+  <rect class="mcu" x="40" y="200" width="440" height="110" rx="6"/>
+  <text class="h" x="55" y="224">Zephyr firmware (Cortex-M3, Controller repository)</text>
+  <text class="t" x="55" y="248">virtual DYNAMIXEL devices:</text>
+  <text class="t" x="55" y="270">ID 1–6 stepper axes (XW430-T333-R) · ID 7 gripper</text>
+  <text class="s" x="55" y="292">ID 200 controller: detected drivers, backend, servo ID</text>
+
+  <rect class="mcu" x="560" y="200" width="400" height="48" rx="6"/>
+  <text class="t" x="575" y="221">MCP2221A USB-UART → PIC32 (pass-through)</text>
+  <text class="s" x="575" y="239">460800 bps → 230400 bps</text>
+
+  <rect class="fab" x="560" y="262" width="400" height="48" rx="6"/>
+  <text class="t" x="575" y="283">FPGA fabric: pin routing · CorePWM</text>
+  <text class="s" x="575" y="301">registers at 0x5000_0000 (APB)</text>
+
+  <path class="l" d="M560 224 L480 224"/>
+  <text class="s" x="520" y="216" text-anchor="middle">MMUART_0</text>
+  <path class="l" d="M480 286 L560 286"/>
+  <text class="s" x="520" y="278" text-anchor="middle">APB</text>
+
+  <!-- Drivers -->
+  <path class="l" d="M200 310 L200 380"/>
+  <text class="s" x="210" y="358">SPI_0 · mode 3 · ≤ 2 MHz · CS0–CS5</text>
+  <path class="l" d="M760 310 L760 380"/>
+  <text class="s" x="770" y="358">D3 · 50 Hz · 1–2 ms pulse</text>
+
+  <rect class="drv" x="20" y="380" width="440" height="70" rx="8"/>
+  <text class="h" x="35" y="406">6× TMC5160T Pro</text>
+  <text class="t" x="35" y="428">motion-controller mode · VM 24 V</text>
+
+  <rect class="drv" x="520" y="380" width="460" height="70" rx="8"/>
+  <text class="h" x="535" y="406">MG996R gripper servo (ID 7)</text>
+  <text class="t" x="535" y="428">6 V from DC/DC · open loop</text>
+
+  <!-- Mechanics -->
+  <path class="l" d="M200 450 L200 490"/>
+  <text class="s" x="210" y="475">6 stepper motors</text>
+  <path class="l" d="M760 450 L760 490"/>
+  <text class="s" x="770" y="475">gripper jaws</text>
+
+  <rect class="mech" x="20" y="490" width="960" height="50" rx="8"/>
+  <text class="h" x="35" y="520">BCN3D Moveo mechanics</text>
+  <text class="t" x="230" y="520">J1 base · J2 shoulder (2 motors) · J3 elbow · J4 forearm roll · J5 wrist · gripper</text>
+</svg>
